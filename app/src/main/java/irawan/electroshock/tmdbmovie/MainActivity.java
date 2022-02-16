@@ -46,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<Results> call, @NonNull Response<Results> response) {
                 if (response.body() != null) {
-                    Log.d(TAG, "onResponse: "+response.body().getResults().get(1).getTitle());
+                    for(int i =0; i < response.body().getResults().size();i++ ){
+                        Log.d(TAG, "onResponse: "+response.body().getResults().get(i).getTitle());
+                    }
                 }
             }
 
