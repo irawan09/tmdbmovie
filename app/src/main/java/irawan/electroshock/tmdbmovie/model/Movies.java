@@ -60,6 +60,4 @@ public class Movies {
     @SerializedName("title")
     @Expose
     private String title;
-
-
 }

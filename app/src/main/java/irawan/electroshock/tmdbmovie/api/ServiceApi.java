@@ -12,5 +12,4 @@ public interface ServiceApi {
 
     @GET("movie/popular")
     Call<ResponseBody> getResultsAsJSON(@Query("api_key") String apiKey);
-
 }
