@@ -9,11 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Observer;
 
 import javax.inject.Inject;
 
 import irawan.electroshock.tmdbmovie.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.di.module.MoviesRepositoryModule;
+import irawan.electroshock.tmdbmovie.model.Movies;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,7 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
         ServiceApi getServiceApi = retrofit.create(ServiceApi.class);
 
-        buttonAsResult.setOnClickListener(v -> moviesRepositoryModule.provideGetData());
+        buttonAsResult.setOnClickListener(v ->
+                moviesRepositoryModule.provideGetData().observe(this, movies ->
+                        Log.d(TAG, movies.get(9).getTitle())
+                )
+        );
 
         buttonAsJSON.setOnClickListener(v -> getServiceApi.getResultsAsJSON(apiKey).enqueue(new Callback<ResponseBody>() {
             @Override

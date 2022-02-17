@@ -64,8 +64,6 @@ public class MoviesRepositoryModule {
 
                             moviesArrayList.add(movies);
                             moviesMutableLiveData.postValue(moviesArrayList);
-                            Log.d(TAG, "onResponse: "+moviesArrayList.get(i).getTitle());
-
                         }
                     }
                 }
