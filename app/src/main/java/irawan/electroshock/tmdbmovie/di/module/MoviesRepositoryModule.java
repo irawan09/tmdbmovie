@@ -14,9 +14,9 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import irawan.electroshock.tmdbmovie.api.ServiceApi;
-import irawan.electroshock.tmdbmovie.model.Movies;
-import irawan.electroshock.tmdbmovie.model.Results;
+import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
+import irawan.electroshock.tmdbmovie.data.model.Movies;
+import irawan.electroshock.tmdbmovie.data.model.Results;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -12,7 +12,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import irawan.electroshock.tmdbmovie.api.ServiceApi;
+import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.di.module.MoviesRepositoryModule;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

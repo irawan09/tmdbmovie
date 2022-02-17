@@ -1,4 +1,4 @@
-package irawan.electroshock.tmdbmovie.model;
+package irawan.electroshock.tmdbmovie.data.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -1,6 +1,6 @@
-package irawan.electroshock.tmdbmovie.api;
+package irawan.electroshock.tmdbmovie.data.api;
 
-import irawan.electroshock.tmdbmovie.model.Results;
+import irawan.electroshock.tmdbmovie.data.model.Results;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;

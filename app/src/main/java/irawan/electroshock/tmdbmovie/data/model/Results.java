@@ -1,6 +1,4 @@
-package irawan.electroshock.tmdbmovie.model;
-
-import androidx.constraintlayout.utils.widget.MockView;
+package irawan.electroshock.tmdbmovie.data.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
