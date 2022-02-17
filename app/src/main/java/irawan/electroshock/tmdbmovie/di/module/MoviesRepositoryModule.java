@@ -40,7 +40,7 @@ public class MoviesRepositoryModule {
 
     @Provides
     @Singleton
-    public MutableLiveData<ArrayList<Movies>> provideGetData(){
+    public MutableLiveData<ArrayList<Movies>> provideMoviesGetData(){
         api = retrofit.create(ServiceApi.class);
         api.getPopularMovies(apiKey).enqueue(new Callback<Results>() {
             @Override

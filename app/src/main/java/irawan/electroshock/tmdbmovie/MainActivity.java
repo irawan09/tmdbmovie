@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         ServiceApi getServiceApi = retrofit.create(ServiceApi.class);
 
         buttonAsResult.setOnClickListener(v ->
-                moviesRepositoryModule.provideGetData().observe(this, movies ->
+                moviesRepositoryModule.provideMoviesGetData().observe(this, movies ->
                         Log.d(TAG, movies.get(9).getTitle())
                 )
         );
