@@ -9,14 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Observer;
 
 import javax.inject.Inject;
 
 import irawan.electroshock.tmdbmovie.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.di.module.MoviesRepositoryModule;
-import irawan.electroshock.tmdbmovie.model.Movies;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
