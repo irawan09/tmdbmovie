@@ -3,20 +3,17 @@ package irawan.electroshock.tmdbmovie;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 
 import javax.inject.Inject;
 
 import irawan.electroshock.tmdbmovie.api.ServiceApi;
-import irawan.electroshock.tmdbmovie.model.Results;
-import irawan.electroshock.tmdbmovie.repository.RepositoryModule;
+import irawan.electroshock.tmdbmovie.di.module.MoviesRepositoryModule;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     Retrofit retrofit;
 
     @Inject
-    RepositoryModule repositoryModule;
+    MoviesRepositoryModule moviesRepositoryModule;
 
     @SuppressLint("CutPasteId")
     @Override
@@ -48,30 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         ServiceApi getServiceApi = retrofit.create(ServiceApi.class);
 
-        buttonAsResult.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                repositoryModule.provideGetData();
-            }
-        });
-
-//        buttonAsResult.setOnClickListener(v -> getServiceApi.getPopularMovies(apiKey).enqueue(new Callback<Results>() {
-//            @Override
-//            public void onResponse(@NonNull Call<Results> call, @NonNull Response<Results> response) {
-//                if (response.body() != null) {
-//                    for(int i =0; i < response.body().getResults().size();i++ ){
-////                        Log.d(TAG, "onResponse: "+response.body().getResults().get(i).getTitle());
-//                        RepositoryModule repo = new RepositoryModule();
-//                        repo.provideGetData();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<Results> call, @NonNull Throwable t) {
-//                Log.d(TAG, "onFailure: "+t.getMessage());
-//            }
-//        }));
+        buttonAsResult.setOnClickListener(v -> moviesRepositoryModule.provideGetData());
 
         buttonAsJSON.setOnClickListener(v -> getServiceApi.getResultsAsJSON(apiKey).enqueue(new Callback<ResponseBody>() {
             @Override
