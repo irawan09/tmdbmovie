@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        buttonAsJSON = (Button) findViewById(R.id.btn_as_json);
-        buttonAsResult = (Button) findViewById(R.id.btn_as_model);
+        buttonAsJSON = findViewById(R.id.btn_as_json);
+        buttonAsResult = findViewById(R.id.btn_as_model);
 
         ((BaseApplication) getApplication()).getNetComponent().inject(this);
 
