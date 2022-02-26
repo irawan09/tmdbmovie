@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Entity(tableName = "tb_movies")
 public class MovieEntity implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
     public int id;
 

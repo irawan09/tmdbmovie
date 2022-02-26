@@ -78,8 +78,8 @@ public class MoviesRepositoryModule {
                             movieEntity.setReleaseDate(releaseDate);
 
                             moviesArrayList.add(movies);
-//                            Executor.IOThread(() -> moviesDao.insertAll(movieEntity));
                             moviesMutableLiveData.postValue(moviesArrayList);
+                            Executor.IOThread(() -> moviesDao.insertAll(movieEntity));
                         }
                     }
                 }
