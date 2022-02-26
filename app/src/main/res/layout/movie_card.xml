@@ -13,7 +13,8 @@
     card_view:contentPadding="10dp"
     android:foreground="?selectableItemBackground"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:onClick="@{}">
 
     <RelativeLayout
         android:layout_width="match_parent"
