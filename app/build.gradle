@@ -60,4 +60,8 @@ dependencies {
     def fragment_version = "1.4.1"
     implementation("androidx.fragment:fragment:$fragment_version")
 
+    // view dependency
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+
 }

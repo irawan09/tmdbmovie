@@ -2,4 +2,5 @@
     <string name="app_name">TMDBMovie</string>
     <string name="get_as_json">Get as JSON</string>
     <string name="get_as_model">Get as Model</string>
+    <string name="imageFromMovie">Image From Movie</string>
 </resources>
