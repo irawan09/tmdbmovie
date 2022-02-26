@@ -93,4 +93,11 @@ public class MoviesRepositoryModule {
 
         return moviesMutableLiveData;
     }
+
+    @Provides
+    @Singleton
+    public List<MovieEntity> provideGetDatabaseData(){
+        final MoviesDao moviesDao = database.moviesDao();
+        return moviesDao.getAll();
+    }
 }

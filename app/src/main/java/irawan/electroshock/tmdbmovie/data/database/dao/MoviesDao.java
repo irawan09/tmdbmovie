@@ -15,7 +15,7 @@ import irawan.electroshock.tmdbmovie.data.model.Movies;
 @Dao
 public interface MoviesDao {
     @Query("SELECT * FROM tb_movies")
-    public LiveData<List<Movies>> getAll();
+    public List<MovieEntity> getAll();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertAll(MovieEntity... movieEntities);

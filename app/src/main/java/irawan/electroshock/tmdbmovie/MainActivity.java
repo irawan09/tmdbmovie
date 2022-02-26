@@ -13,6 +13,7 @@ import java.io.IOException;
 import javax.inject.Inject;
 
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
+import irawan.electroshock.tmdbmovie.data.database.Executor;
 import irawan.electroshock.tmdbmovie.di.module.MoviesRepositoryModule;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -46,9 +47,7 @@ public class MainActivity extends AppCompatActivity {
         ServiceApi getServiceApi = retrofit.create(ServiceApi.class);
 
         buttonAsResult.setOnClickListener(v ->
-                moviesRepositoryModule.provideMoviesGetData().observe(this, movies ->
-                        Log.d(TAG, movies.get(9).getTitle())
-                )
+                Executor.IOThread(() -> Log.d(TAG, String.valueOf(moviesRepositoryModule.provideGetDatabaseData().size())))
         );
 
         buttonAsJSON.setOnClickListener(v -> getServiceApi.getResultsAsJSON(apiKey).enqueue(new Callback<ResponseBody>() {
