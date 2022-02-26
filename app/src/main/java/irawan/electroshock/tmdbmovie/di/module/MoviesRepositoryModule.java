@@ -15,6 +15,10 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
+import irawan.electroshock.tmdbmovie.data.database.AppDatabase;
+import irawan.electroshock.tmdbmovie.data.database.Executor;
+import irawan.electroshock.tmdbmovie.data.database.dao.MoviesDao;
+import irawan.electroshock.tmdbmovie.data.model.MovieEntity;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.data.model.Results;
 import retrofit2.Call;
@@ -32,6 +36,9 @@ public class MoviesRepositoryModule {
     @Inject
     Retrofit retrofit;
 
+    @Inject
+    AppDatabase database;
+
     ServiceApi api;
     private static final String apiKey = "9edf3fee29984e86d8be8170d810dd71";
     private static final String TAG = "Repository";
@@ -42,6 +49,7 @@ public class MoviesRepositoryModule {
     @Singleton
     public MutableLiveData<ArrayList<Movies>> provideMoviesGetData(){
         api = retrofit.create(ServiceApi.class);
+        final MoviesDao moviesDao = database.moviesDao();
         api.getPopularMovies(apiKey).enqueue(new Callback<Results>() {
             @Override
             public void onResponse(@NonNull Call<Results> call, @NonNull Response<Results> response) {
@@ -62,7 +70,15 @@ public class MoviesRepositoryModule {
                             movies.setPosterPath(posterPath);
                             movies.setReleaseDate(releaseDate);
 
+                            MovieEntity movieEntity = new MovieEntity();
+                            movieEntity.setId(Integer.parseInt(id));
+                            movieEntity.setTitle(title);
+                            movieEntity.setOverview(overview);
+                            movieEntity.setPosterPath(posterPath);
+                            movieEntity.setReleaseDate(releaseDate);
+
                             moviesArrayList.add(movies);
+//                            Executor.IOThread(() -> moviesDao.insertAll(movieEntity));
                             moviesMutableLiveData.postValue(moviesArrayList);
                         }
                     }
