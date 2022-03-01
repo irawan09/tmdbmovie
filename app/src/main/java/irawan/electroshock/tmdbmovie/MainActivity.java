@@ -9,11 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.data.database.Executor;
+import irawan.electroshock.tmdbmovie.data.model.MovieEntity;
 import irawan.electroshock.tmdbmovie.di.module.MoviesRepositoryModule;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -46,10 +49,12 @@ public class MainActivity extends AppCompatActivity {
 
         ServiceApi getServiceApi = retrofit.create(ServiceApi.class);
 
+        List<MovieEntity> databaseData = moviesRepositoryModule.provideGetDatabaseData();
+
         buttonAsResult.setOnClickListener(v ->
                 Executor.IOThread(() -> {
-                    for (int i = 0; i < moviesRepositoryModule.provideGetDatabaseData().size();i++){
-                     Log.d("DATA", String.valueOf(moviesRepositoryModule.provideGetDatabaseData().get(i).getTitle()));
+                    for (int i = 0; i < databaseData.size();i++){
+                     Log.d("DATA", String.valueOf(databaseData.get(i).getTitle()));
                     }
                 })
         );
