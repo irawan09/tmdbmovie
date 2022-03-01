@@ -47,7 +47,11 @@ public class MainActivity extends AppCompatActivity {
         ServiceApi getServiceApi = retrofit.create(ServiceApi.class);
 
         buttonAsResult.setOnClickListener(v ->
-                Executor.IOThread(() -> Log.d(TAG, String.valueOf(moviesRepositoryModule.provideGetDatabaseData().size())))
+                Executor.IOThread(() -> {
+                    for (int i = 0; i < moviesRepositoryModule.provideGetDatabaseData().size();i++){
+                     Log.d("DATA", String.valueOf(moviesRepositoryModule.provideGetDatabaseData().get(i).getTitle()));
+                    }
+                })
         );
 
         buttonAsJSON.setOnClickListener(v -> getServiceApi.getResultsAsJSON(apiKey).enqueue(new Callback<ResponseBody>() {
