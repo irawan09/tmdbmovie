@@ -91,6 +91,8 @@ public class MoviesRepositoryModule {
             }
         });
 
+        Log.d("LIVE DATA", String.valueOf(moviesMutableLiveData));
+
         return moviesMutableLiveData;
     }
 
@@ -100,4 +102,5 @@ public class MoviesRepositoryModule {
         final MoviesDao moviesDao = database.moviesDao();
         return moviesDao.getAll();
     }
+
 }

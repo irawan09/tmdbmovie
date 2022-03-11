@@ -7,16 +7,21 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 import javax.inject.Inject;
 
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.data.database.Executor;
 import irawan.electroshock.tmdbmovie.data.model.MovieEntity;
+import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.di.module.MoviesRepositoryModule;
+import irawan.electroshock.tmdbmovie.presentation.fragment.MoviesViewModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Inject
     Retrofit retrofit;
+
+    MoviesViewModel moviesViewModel;
 
     @Inject
     MoviesRepositoryModule moviesRepositoryModule;
@@ -48,10 +55,16 @@ public class MainActivity extends AppCompatActivity {
 
         ServiceApi getServiceApi = retrofit.create(ServiceApi.class);
 
-        List<MovieEntity> databaseData = moviesRepositoryModule.provideGetDatabaseData();
+        moviesViewModel = new ViewModelProvider(this).get(MoviesViewModel.class);
 
         buttonAsResult.setOnClickListener(v ->
+//                moviesRepositoryModule.provideMoviesGetData().observe(this,
+//                        movies ->
+//                                Log.d("DATA",String.valueOf(movies.get(7).getTitle()))
+//                )
+
                 Executor.IOThread(() -> {
+                    List<MovieEntity> databaseData = moviesRepositoryModule.provideGetDatabaseData();
                     for (int i = 0; i < databaseData.size();i++){
                      Log.d("DATA", String.valueOf(databaseData.get(i).getTitle()));
                     }
