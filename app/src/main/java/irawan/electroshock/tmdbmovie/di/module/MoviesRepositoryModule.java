@@ -91,8 +91,6 @@ public class MoviesRepositoryModule {
             }
         });
 
-        Log.d("LIVE DATA", String.valueOf(moviesMutableLiveData));
-
         return moviesMutableLiveData;
     }
 
