@@ -17,8 +17,8 @@ public class Movies implements Serializable {
     @Expose
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
-    @NonNull
-    private String id;
+    private @NonNull String id = "";
+
     @SerializedName("overview")
     @Expose
     @ColumnInfo(name = "overview")
