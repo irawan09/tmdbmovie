@@ -18,7 +18,6 @@ import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.data.database.AppDatabase;
 import irawan.electroshock.tmdbmovie.data.database.Executor;
 import irawan.electroshock.tmdbmovie.data.database.dao.MoviesDao;
-import irawan.electroshock.tmdbmovie.data.model.MovieEntity;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.data.model.Results;
 import retrofit2.Call;
@@ -70,16 +69,9 @@ public class MoviesRepositoryModule {
                             movies.setPosterPath(posterPath);
                             movies.setReleaseDate(releaseDate);
 
-                            MovieEntity movieEntity = new MovieEntity();
-                            movieEntity.setId(Integer.parseInt(id));
-                            movieEntity.setTitle(title);
-                            movieEntity.setOverview(overview);
-                            movieEntity.setPosterPath(posterPath);
-                            movieEntity.setReleaseDate(releaseDate);
-
                             moviesArrayList.add(movies);
                             moviesMutableLiveData.postValue(moviesArrayList);
-                            Executor.IOThread(() -> moviesDao.insertAll(movieEntity));
+                            Executor.IOThread(() -> moviesDao.insertAll(movies));
                         }
                     }
                 }
@@ -96,7 +88,7 @@ public class MoviesRepositoryModule {
 
     @Provides
     @Singleton
-    public List<MovieEntity> provideGetDatabaseData(){
+    public List<Movies> provideGetDatabaseData(){
         final MoviesDao moviesDao = database.moviesDao();
         return moviesDao.getAll();
     }

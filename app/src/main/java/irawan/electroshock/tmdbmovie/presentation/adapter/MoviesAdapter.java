@@ -16,14 +16,14 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import java.util.List;
 
 import irawan.electroshock.tmdbmovie.R;
-import irawan.electroshock.tmdbmovie.data.model.MovieEntity;
+import irawan.electroshock.tmdbmovie.data.model.Movies;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
-    List<MovieEntity> movieList;
+    List<Movies> movieList;
     private Context context;
 
-    public MoviesAdapter(List<MovieEntity> movieList, Context context) {
+    public MoviesAdapter(List<Movies> movieList, Context context) {
         this.movieList = movieList;
         this.context = context;
     }
