@@ -15,7 +15,7 @@ public class Movies implements Serializable {
 
     @SerializedName("id")
     @Expose
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey()
     @ColumnInfo(name = "id")
     private @NonNull String id = "";
 
@@ -39,11 +39,12 @@ public class Movies implements Serializable {
     @ColumnInfo(name = "title")
     private String title;
 
+    @NonNull
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 
