@@ -14,11 +14,13 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.rxjava3.core.Observable;
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.data.database.AppDatabase;
 import irawan.electroshock.tmdbmovie.data.database.Executor;
 import irawan.electroshock.tmdbmovie.data.database.dao.MoviesDao;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
+import irawan.electroshock.tmdbmovie.data.model.ObservableMovies;
 import irawan.electroshock.tmdbmovie.data.model.Results;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,8 +49,8 @@ public class MoviesRepositoryModule {
     @Provides
     @Singleton
     public MutableLiveData<ArrayList<Movies>> provideMoviesGetData(){
-        api = retrofit.create(ServiceApi.class);
         final MoviesDao moviesDao = database.moviesDao();
+        api = retrofit.create(ServiceApi.class);
         api.getPopularMovies(apiKey).enqueue(new Callback<Results>() {
             @Override
             public void onResponse(@NonNull Call<Results> call, @NonNull Response<Results> response) {
@@ -91,6 +93,13 @@ public class MoviesRepositoryModule {
     public List<Movies> provideGetDatabaseData(){
         final MoviesDao moviesDao = database.moviesDao();
         return moviesDao.getAll();
+    }
+
+    @Provides
+    @Singleton
+    public Observable<ObservableMovies> getMoviesObservable(){
+        api = retrofit.create(ServiceApi.class);
+        return api.getObservableMovies(apiKey);
     }
 
 }

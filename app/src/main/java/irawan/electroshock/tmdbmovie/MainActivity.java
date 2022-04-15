@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
 //                     Log.d("DATA", String.valueOf(databaseData.get(i).getTitle()));
 //                    }
 //                })
-
                         moviesRepositoryModule.provideMoviesGetData().observe(this,
                                 movies -> {
                                     for(int i =0;i< movies.size(); i++){

@@ -9,6 +9,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @Entity(tableName = "tb_movies")
 public class ObservableMovies implements Serializable {

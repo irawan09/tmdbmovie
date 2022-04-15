@@ -8,8 +8,10 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 
 @Module
 public class NetworkModule {
@@ -33,6 +35,7 @@ public class NetworkModule {
     Retrofit provideRetrofit(Gson gson){
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .baseUrl(baseUrl)
                 .build();
     }
