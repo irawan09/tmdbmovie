@@ -34,9 +34,9 @@ public class NetworkModule {
     @Singleton
     Retrofit provideRetrofit(Gson gson){
         return new Retrofit.Builder()
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .baseUrl(baseUrl)
                 .build();
     }
 }

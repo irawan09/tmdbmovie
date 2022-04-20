@@ -14,14 +14,16 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.data.database.AppDatabase;
 import irawan.electroshock.tmdbmovie.data.database.Executor;
 import irawan.electroshock.tmdbmovie.data.database.dao.MoviesDao;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
-import irawan.electroshock.tmdbmovie.data.model.ObservableMovies;
 import irawan.electroshock.tmdbmovie.data.model.Results;
+import irawan.electroshock.tmdbmovie.data.model.ResultsObservable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -97,7 +99,7 @@ public class MoviesRepositoryModule {
 
     @Provides
     @Singleton
-    public Observable<ObservableMovies> getMoviesObservable(){
+    public Observable<ResultsObservable> provideGetMoviesObservable(){
         api = retrofit.create(ServiceApi.class);
         return api.getObservableMovies(apiKey);
     }
