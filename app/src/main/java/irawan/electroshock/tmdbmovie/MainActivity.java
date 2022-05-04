@@ -85,7 +85,12 @@ public class MainActivity extends AppCompatActivity {
         );
 
         binding.btnAsObservable.setOnClickListener(v->
-                moviesRepositoryModule.provideMoviesObservableGetData()
+                moviesRepositoryModule.provideMoviesObservableGetData().observe(this,
+                        movies -> {
+                            for(int i=0;i<movies.size(); i++){
+                                Log.d("Observable data", String.valueOf(movies.get(i).getTitle()));
+                            }
+                        })
         );
     }
 
