@@ -104,4 +104,38 @@ public class MoviesRepositoryModule {
         return api.getObservableMovies(apiKey);
     }
 
+    @Provides
+    @Singleton
+    public MutableLiveData<ArrayList<Movies>> provideMoviesObservableGetData(){
+
+        provideGetMoviesObservable()
+                .subscribeOn(Schedulers.io())
+                .map(observableMovies -> {
+                    ArrayList<Movies> list = observableMovies.getResultsObservable();
+                    for(int i=0; i< list.size(); i++){
+                        String id = observableMovies.getResultsObservable().get(i).getId();
+                        String title = observableMovies.getResultsObservable().get(i).getTitle();
+                        String overview = observableMovies.getResultsObservable().get(i).getOverview();
+                        String posterPath = observableMovies.getResultsObservable().get(i).getPosterPath();
+                        String releaseDate = observableMovies.getResultsObservable().get(i).getReleaseDate();
+
+                        Movies movies = new Movies();
+                        movies.setId(id);
+                        movies.setTitle(title);
+                        movies.setOverview(overview);
+                        movies.setPosterPath(posterPath);
+                        movies.setReleaseDate(releaseDate);
+                        Log.i(TAG, "data : "+ observableMovies.getResultsObservable().get(i).getTitle());
+                        moviesArrayList.add(movies);
+                        moviesMutableLiveData.postValue(moviesArrayList);
+                    }
+                    return list;
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(moviesMutableLiveData::setValue,
+                        error-> Log.e(TAG, "getMovies: " + error.getMessage() ));
+
+        return moviesMutableLiveData;
+    }
+
 }

@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Inject
     Retrofit retrofit;
-
     MoviesViewModel moviesViewModel;
 
     @Inject
@@ -64,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                                         Log.d("Remote Data" ,String.valueOf(movies.get(i).getTitle()));
                                     }
                                 })
-//                Log.d("4thRemoteData", String.valueOf(Objects.requireNonNull(moviesViewModel.getMoviesList().getValue()).get(4).getTitle())));
         );
 
         binding.btnAsJson.setOnClickListener(v-> getServiceApi.getResultsAsJSON(apiKey).enqueue(new Callback<ResponseBody>() {
@@ -87,28 +85,8 @@ public class MainActivity extends AppCompatActivity {
         );
 
         binding.btnAsObservable.setOnClickListener(v->
-//                moviesViewModel.getMoviesViewModels()
-                getMoviesViewModels()
+                moviesRepositoryModule.provideMoviesObservableGetData()
         );
     }
 
-    public void getMoviesViewModels(){
-        final MutableLiveData<ArrayList<Movies>> moviesDataList = new MutableLiveData<>();
-        moviesRepositoryModule.provideGetMoviesObservable()
-                .subscribeOn(Schedulers.io())
-                .map(observableMovies -> {
-                    ArrayList<Movies> list = observableMovies.getResultsObservable();
-                    for(int i=0; i< list.size(); i++){
-                        String id = observableMovies.getResultsObservable().get(i).getId();
-                        String title = observableMovies.getResultsObservable().get(i).getTitle();
-                        String overview = observableMovies.getResultsObservable().get(i).getOverview();
-                        String posterPath = observableMovies.getResultsObservable().get(i).getPosterPath();
-                        Log.i(TAG, "data : "+ observableMovies.getResultsObservable().get(i).getTitle());
-                    }
-                    return list;
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(moviesDataList::setValue,
-                        error-> Log.e(TAG, "getMovies: " + error.getMessage() ));
-    }
 }
