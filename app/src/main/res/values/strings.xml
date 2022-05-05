@@ -6,4 +6,5 @@
     <string name="get_as_observable">Get as Observable</string>
     <string name="get_as_database">Get as Database</string>
     <string name="electroshock">ELECTROSHOCK</string>
+    <string name="dominion">Dominion</string>
 </resources>
