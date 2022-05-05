@@ -107,12 +107,13 @@ public class MoviesRepositoryModule {
     @Provides
     @Singleton
     public MutableLiveData<ArrayList<Movies>> provideMoviesObservableGetData(){
-
+        final MoviesDao moviesDao = database.moviesDao();
         provideGetMoviesObservable()
                 .subscribeOn(Schedulers.io())
                 .map(observableMovies -> {
                     ArrayList<Movies> list = observableMovies.getResultsObservable();
                     for(int i=0; i< list.size(); i++){
+                        Log.i("Line ", "---------------------------------------");
                         String id = observableMovies.getResultsObservable().get(i).getId();
                         String title = observableMovies.getResultsObservable().get(i).getTitle();
                         String overview = observableMovies.getResultsObservable().get(i).getOverview();
@@ -125,9 +126,9 @@ public class MoviesRepositoryModule {
                         movies.setOverview(overview);
                         movies.setPosterPath(posterPath);
                         movies.setReleaseDate(releaseDate);
-                        Log.i(TAG, "data : "+ observableMovies.getResultsObservable().get(i).getTitle());
                         moviesArrayList.add(movies);
                         moviesMutableLiveData.postValue(moviesArrayList);
+                        Executor.IOThread(() -> moviesDao.insertAll(movies));
                     }
                     return list;
                 })
