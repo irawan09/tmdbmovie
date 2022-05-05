@@ -16,8 +16,10 @@
         android:paddingBottom="32dp"
         android:text="@string/electroshock"
         android:textFontWeight="10"
+        android:textSize="24sp"
+        android:textColor="@color/teal_200"
         android:textAlignment="center"/>
-
+    
     <Button
         android:id="@+id/btn_as_model"
         android:layout_width="match_parent"
