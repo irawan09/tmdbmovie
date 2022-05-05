@@ -1,9 +1,6 @@
 package irawan.electroshock.tmdbmovie.data.model;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -11,33 +8,26 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-@Entity(tableName = "tb_movies")
 public class ObservableMovies extends ArrayList<Movies> implements Serializable {
 
     @SerializedName("id")
     @Expose
-    @PrimaryKey()
-    @ColumnInfo(name = "id")
     private @NonNull String id = "";
 
     @SerializedName("overview")
     @Expose
-    @ColumnInfo(name = "overview")
     private String overview;
 
     @SerializedName("poster_path")
     @Expose
-    @ColumnInfo(name = "poster_path")
     private String posterPath;
 
     @SerializedName("release_date")
     @Expose
-    @ColumnInfo(name = "release_date")
     private String releaseDate;
 
     @SerializedName("title")
     @Expose
-    @ColumnInfo(name = "title")
     private String title;
 
     @NonNull
@@ -80,6 +70,4 @@ public class ObservableMovies extends ArrayList<Movies> implements Serializable 
     public void setTitle(String title) {
         this.title = title;
     }
-
-
 }

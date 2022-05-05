@@ -7,16 +7,19 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviderKt;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
+import irawan.electroshock.tmdbmovie.data.database.Executor;
+import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.databinding.ActivityMainBinding;
 import irawan.electroshock.tmdbmovie.di.module.MoviesUseCase;
 import irawan.electroshock.tmdbmovie.presentation.fragment.MoviesViewModel;
+import irawan.electroshock.tmdbmovie.presentation.fragment.MoviesViewModelFactory;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
     MoviesViewModel moviesViewModel;
 
     @Inject
+    MoviesViewModelFactory mViewModelFactory;
+
+    @Inject
     MoviesUseCase moviesUseCase;
 
     @SuppressLint("CutPasteId")
@@ -45,29 +51,15 @@ public class MainActivity extends AppCompatActivity {
 
         ((BaseApplication) getApplication()).getNetComponent().inject(this);
         ServiceApi getServiceApi = retrofit.create(ServiceApi.class);
-        moviesViewModel = new ViewModelProvider(this).get(MoviesViewModel.class);
+        moviesViewModel = new ViewModelProvider(this, mViewModelFactory).get(MoviesViewModel.class);
 
         binding.btnAsModel.setOnClickListener(v ->
-//                        Executor.IOThread(() -> {
-//                    List<MovieEntity> databaseData = moviesUseCase.provideGetDatabaseData();
-//                    for (int i = 0; i < databaseData.size();i++){
-//                     Log.d("DATA", String.valueOf(databaseData.get(i).getTitle()));
-//                    }
-//                })
-
-                        moviesUseCase.provideMoviesGetDataObject().observe(this,
-                                movies -> {
-                                    for(int i =0;i< movies.size(); i++){
-                                        Log.d("Remote Data" ,String.valueOf(movies.get(i).getTitle()));
-                                    }
-                                })
-
-//                moviesViewModel.moviesGetDataObject().observe(this,
-//                        movies -> {
-//                            for(int i =0;i< movies.size(); i++){
-//                                Log.d("Remote Data" ,String.valueOf(movies.get(i).getTitle()));
-//                            }
-//                        })
+                moviesViewModel.moviesGetDataObject().observe(this,
+                        movies -> {
+                            for(int i =0;i< movies.size(); i++){
+                                Log.d("Remote Data" ,String.valueOf(movies.get(i).getTitle()));
+                            }
+                        })
         );
 
         binding.btnAsJson.setOnClickListener(v-> getServiceApi.getResultsAsJSON(apiKey).enqueue(new Callback<ResponseBody>() {
@@ -90,13 +82,21 @@ public class MainActivity extends AppCompatActivity {
         );
 
         binding.btnAsObservable.setOnClickListener(v->
-                moviesUseCase.provideMoviesObservableGetData().observe(this,
-                        movies -> {
-                            for(int i=0;i<movies.size(); i++){
+                moviesViewModel.moviesObservableGetData().observe(this, movies -> {
+                    for(int i=0;i<movies.size(); i++){
                                 Log.d("Observable data", String.valueOf(movies.get(i).getTitle()));
-                            }
-                        })
+                    }
+                })
         );
+
+        binding.btnAsDatabase.setOnClickListener(v->{
+            Executor.IOThread(() -> {
+                    List<Movies> databaseData = moviesUseCase.provideGetDatabaseData();
+                    for (int i = 0; i < databaseData.size();i++){
+                     Log.d("Database", String.valueOf(databaseData.get(i).getTitle()));
+                    }
+                });
+        });
     }
 
 }

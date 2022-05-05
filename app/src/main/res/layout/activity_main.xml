@@ -30,4 +30,11 @@
         android:layout_margin="10dp"
         android:text="@string/get_as_observable" />
 
+    <Button
+        android:id="@+id/btn_as_database"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/get_as_database" />
+
 </LinearLayout>

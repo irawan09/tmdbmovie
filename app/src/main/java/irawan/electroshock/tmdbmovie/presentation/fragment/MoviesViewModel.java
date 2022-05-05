@@ -12,8 +12,13 @@ import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.di.module.MoviesUseCase;
 
 public class MoviesViewModel extends ViewModel {
-    @Inject
+
     MoviesUseCase moviesUseCase;
+
+    @Inject
+    public MoviesViewModel(MoviesUseCase moviesUseCase){
+        this.moviesUseCase = moviesUseCase;
+    }
 
     public MutableLiveData<ArrayList<Movies>> moviesGetDataObject(){
         return moviesUseCase.provideMoviesGetDataObject();

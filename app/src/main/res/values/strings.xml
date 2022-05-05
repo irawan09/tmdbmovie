@@ -4,4 +4,5 @@
     <string name="get_as_model">Get as Model</string>
     <string name="imageFromMovie">Image From Movie</string>
     <string name="get_as_observable">Get as Observable</string>
+    <string name="get_as_database">Get as Database</string>
 </resources>
