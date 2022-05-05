@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding.btnAsDatabase.setOnClickListener(v->{
             Executor.IOThread(() -> {
-                    List<Movies> databaseData = moviesUseCase.provideGetDatabaseData();
+                    List<Movies> databaseData = moviesViewModel.getDatabaseData();
                     for (int i = 0; i < databaseData.size();i++){
                      Log.d("Database", String.valueOf(databaseData.get(i).getTitle()));
                     }
