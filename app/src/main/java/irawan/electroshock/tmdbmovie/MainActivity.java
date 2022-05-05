@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         binding.btnAsObservable.setOnClickListener(v->
                 moviesViewModel.moviesObservableGetData().observe(this, movies -> {
                     for(int i=0;i<movies.size(); i++){
-                                Log.d("Observable data", String.valueOf(movies.get(i).getTitle()));
+                        Log.d("Observable data", String.valueOf(movies.get(i).getTitle()));
                     }
                 })
         );
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             Executor.IOThread(() -> {
                     List<Movies> databaseData = moviesViewModel.getDatabaseData();
                     for (int i = 0; i < databaseData.size();i++){
-                     Log.d("Database", String.valueOf(databaseData.get(i).getTitle()));
+                        Log.d("Database", String.valueOf(databaseData.get(i).getTitle()));
                     }
                 });
         });
