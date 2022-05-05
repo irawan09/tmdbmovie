@@ -6,20 +6,16 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviderKt;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
-import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.databinding.ActivityMainBinding;
-import irawan.electroshock.tmdbmovie.di.module.MoviesRepositoryModule;
+import irawan.electroshock.tmdbmovie.di.module.MoviesUseCase;
 import irawan.electroshock.tmdbmovie.presentation.fragment.MoviesViewModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -34,10 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Inject
     Retrofit retrofit;
+
     MoviesViewModel moviesViewModel;
 
     @Inject
-    MoviesRepositoryModule moviesRepositoryModule;
+    MoviesUseCase moviesUseCase;
 
     @SuppressLint("CutPasteId")
     @Override
@@ -52,17 +49,25 @@ public class MainActivity extends AppCompatActivity {
 
         binding.btnAsModel.setOnClickListener(v ->
 //                        Executor.IOThread(() -> {
-//                    List<MovieEntity> databaseData = moviesRepositoryModule.provideGetDatabaseData();
+//                    List<MovieEntity> databaseData = moviesUseCase.provideGetDatabaseData();
 //                    for (int i = 0; i < databaseData.size();i++){
 //                     Log.d("DATA", String.valueOf(databaseData.get(i).getTitle()));
 //                    }
 //                })
-                        moviesRepositoryModule.provideMoviesGetData().observe(this,
+
+                        moviesUseCase.provideMoviesGetDataObject().observe(this,
                                 movies -> {
                                     for(int i =0;i< movies.size(); i++){
                                         Log.d("Remote Data" ,String.valueOf(movies.get(i).getTitle()));
                                     }
                                 })
+
+//                moviesViewModel.moviesGetDataObject().observe(this,
+//                        movies -> {
+//                            for(int i =0;i< movies.size(); i++){
+//                                Log.d("Remote Data" ,String.valueOf(movies.get(i).getTitle()));
+//                            }
+//                        })
         );
 
         binding.btnAsJson.setOnClickListener(v-> getServiceApi.getResultsAsJSON(apiKey).enqueue(new Callback<ResponseBody>() {
@@ -85,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         );
 
         binding.btnAsObservable.setOnClickListener(v->
-                moviesRepositoryModule.provideMoviesObservableGetData().observe(this,
+                moviesUseCase.provideMoviesObservableGetData().observe(this,
                         movies -> {
                             for(int i=0;i<movies.size(); i++){
                                 Log.d("Observable data", String.valueOf(movies.get(i).getTitle()));
