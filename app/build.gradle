@@ -72,7 +72,7 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.41'
 
     def fragment_version = "1.4.1"
-    implementation("androidx.fragment:fragment:$fragment_version")
+    implementation "androidx.fragment:fragment:$fragment_version"
 
     // view dependency
     implementation 'androidx.cardview:cardview:1.0.0'
