@@ -7,3 +7,4 @@ TMDB is a community-driven movie and television series database. Since 2008, all
 5. Room
 6. Dagger2
 7. Glide
+8. Lottie
