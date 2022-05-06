@@ -8,12 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,8 +16,6 @@ import javax.inject.Inject;
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.data.database.Executor;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
-import irawan.electroshock.tmdbmovie.data.model.MoviesObject;
-import irawan.electroshock.tmdbmovie.data.model.ResultsObject;
 import irawan.electroshock.tmdbmovie.databinding.ActivityMainBinding;
 import irawan.electroshock.tmdbmovie.di.module.MoviesUseCase;
 import irawan.electroshock.tmdbmovie.presentation.fragment.MoviesViewModel;
