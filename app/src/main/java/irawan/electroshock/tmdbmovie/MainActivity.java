@@ -8,7 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,6 +21,8 @@ import javax.inject.Inject;
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.data.database.Executor;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
+import irawan.electroshock.tmdbmovie.data.model.MoviesObject;
+import irawan.electroshock.tmdbmovie.data.model.ResultsObject;
 import irawan.electroshock.tmdbmovie.databinding.ActivityMainBinding;
 import irawan.electroshock.tmdbmovie.di.module.MoviesUseCase;
 import irawan.electroshock.tmdbmovie.presentation.fragment.MoviesViewModel;
@@ -68,6 +75,24 @@ public class MainActivity extends AppCompatActivity {
                         if (response.body() != null) {
                             try {
                                 Log.d(TAG, "onResponseJSON: "+response.body().string());
+                                String data = response.body().string();
+
+//                                Intent i = new Intent(FirstScreen.this, SecondScreen.class);
+//                                String strName = null;
+//                                i.putExtra("STRING_I_NEED", strName);
+//
+//                                String newString;
+//                                if (savedInstanceState == null) {
+//                                    Bundle extras = getIntent().getExtras();
+//                                    if(extras == null) {
+//                                        newString= null;
+//                                    } else {
+//                                        newString= extras.getString("STRING_I_NEED");
+//                                    }
+//                                } else {
+//                                    newString= (String) savedInstanceState.getSerializable("STRING_I_NEED");
+//                                }
+
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
