@@ -1,19 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
     tools:context=".presentation.fragment.MoviesFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_height="300dp"
-        android:layout_width="match_parent">
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_gravity="center"
+        app:lottie_fileName="logo.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_speed="1"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycle_movies"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="32dp"
+        android:text="@string/electroshock"
+        android:textFontWeight="10"
+        android:textSize="24sp"
+        android:textAlignment="center"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/btn_as_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/get_as_model" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/btn_as_json"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/get_as_json" />
+
+    <Button
+        android:id="@+id/btn_as_observable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/get_as_observable" />
+
+    <Button
+        android:id="@+id/btn_as_database"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/get_as_database" />
+
+</LinearLayout>

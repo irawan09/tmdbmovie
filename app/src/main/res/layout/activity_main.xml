@@ -9,53 +9,10 @@
     tools:context=".MainActivity"
     android:padding="16dp">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationView"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:layout_gravity="center"
-        app:lottie_fileName="logo.json"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="false"
-        app:lottie_speed="1"/>
-
-    <TextView
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:text="@string/electroshock"
-        android:textFontWeight="10"
-        android:textAlignment="center"
-        tools:targetApi="p" />
-
-    <Button
-        android:id="@+id/btn_as_model"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/get_as_model" />
-
-    <Button
-        android:id="@+id/btn_as_json"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/get_as_json" />
-
-    <Button
-        android:id="@+id/btn_as_observable"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/get_as_observable" />
-
-    <Button
-        android:id="@+id/btn_as_database"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/get_as_database" />
+        android:layout_margin="10dp" />
 
 </LinearLayout>

@@ -1,7 +1,5 @@
 package irawan.electroshock.tmdbmovie.data.database;
 
-import android.os.AsyncTask;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
