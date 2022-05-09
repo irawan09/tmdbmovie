@@ -8,4 +8,5 @@ TMDB is a community-driven movie and television series database. Since 2008, all
 6. Dagger2
 7. Glide
 8. Lottie
-9. Androidx
+9. AndroidX
+10. ViewBinding
