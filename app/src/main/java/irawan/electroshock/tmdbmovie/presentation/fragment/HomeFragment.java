@@ -159,7 +159,9 @@ public class HomeFragment extends Fragment {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.frameLayout, moviesFragment);
+        transaction.addToBackStack("Home Fragment");
         transaction.commit();
+        fragmentManager.popBackStack();
 
 //        binding.moviesFrameLayout.setLayoutManager(new LinearLayoutManager(getContext()));
 //        adapter = new MoviesAdapter(movieList, getContext());
