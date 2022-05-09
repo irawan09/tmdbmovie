@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProvider;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -93,6 +92,7 @@ public class HomeFragment extends Fragment {
 //                                Log.d("Remote data: ", String.valueOf(movieList));
                             }
 //                            adapter.updateList(movieList);
+                            initMovieFragmentView();
                         }
                 )
         );
@@ -153,10 +153,11 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void initRecyclerView() {
+    private void initMovieFragmentView() {
         MoviesFragment moviesFragment = new MoviesFragment();
         FragmentManager fragmentManager = this.requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.addToBackStack(null);
         transaction.replace(R.id.moviesFrameLayout, moviesFragment);
         transaction.commit();
 
