@@ -1,7 +1,9 @@
 package irawan.electroshock.tmdbmovie.presentation.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -21,6 +23,7 @@ import irawan.electroshock.tmdbmovie.databinding.MovieCardBinding;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
 
+    String TAG = "MoviesAdapter";
     ArrayList<Movies> movieList;
     private Context context;
     MovieCardBinding binding;
@@ -40,13 +43,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+//        String title = movieList.get(position).getTitle();
+//        Log.i(TAG, title);
         holder.itemBinding.movieTitle.setText(movieList.get(position).getTitle());
 
         RequestBuilder<Drawable> requestBuilder = Glide.with(holder.itemView.getContext())
                 .asDrawable().sizeMultiplier(0.5f);
 
         Glide.with(context)
-                .load(movieList.get(position).getPosterPath())
+                .load("https://image.tmdb.org/t/p/w500"+movieList.get(position).getPosterPath())
                 .thumbnail(requestBuilder)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.color.cardview_dark_background)
@@ -63,23 +68,24 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     /* ----------------------------------------------------------- */
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder {
-        public MovieCardBinding itemBinding;
+    class MovieViewHolder extends RecyclerView.ViewHolder {
+        private MovieCardBinding itemBinding;
 
         public MovieViewHolder(MovieCardBinding itemBinding) {
             super(itemBinding.getRoot());
             this.itemBinding = itemBinding;
         }
+    }
+    /*-------------------------------------------------------------*/
 
-        public  void updateList(ArrayList<Movies> updatedList){
-            movieList = updatedList;
-            notifyDataSetChanged();
-        }
+    @SuppressLint("NotifyDataSetChanged")
+    public  void updateList(ArrayList<Movies> updatedList){
+        movieList = updatedList;
+        notifyDataSetChanged();
+    }
 
-        public Movies getMovieAt(int position){
-            return movieList.get(position);
-        }
-
+    public Movies getMovieAt(int position){
+        return movieList.get(position);
     }
 }
 

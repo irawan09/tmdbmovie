@@ -9,10 +9,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,7 +39,7 @@ public class MoviesFragment extends Fragment {
     private MoviesFragmentBinding binding;
     private MoviesViewModel mViewModel;
     private MoviesAdapter adapter;
-    private ArrayList<Movies> movieList;
+    private ArrayList<Movies> movieList =  new ArrayList<>();
 
     @Inject
     MoviesViewModelFactory mViewModelFactory;
@@ -70,13 +72,27 @@ public class MoviesFragment extends Fragment {
 
         mViewModel = new ViewModelProvider(this, mViewModelFactory).get(MoviesViewModel.class);
 
+
         binding.btnAsModel.setOnClickListener(v ->
                 mViewModel.moviesGetDataObject().observe(getViewLifecycleOwner(),
                         movies -> {
                             for(int i =0;i< movies.size(); i++){
-                                Log.d("Remote Data" ,String.valueOf(movies.get(i).getTitle()));
+//                                Log.d("Remote Data" ,String.valueOf(movies.get(i).getTitle()));
+                                String title = movies.get(i).getTitle();
+                                String posterPath = movies.get(i).getPosterPath();
+                                String description = movies.get(i).getOverview();
+
+                                Movies movie = new Movies();
+                                movie.setTitle(title);
+                                movie.setPosterPath(posterPath);
+                                movie.setOverview(description);
+
+                                movieList.add(movie);
+//                                Log.d("Remote data: ", String.valueOf(movieList));
                             }
-                        })
+//                            adapter.updateList(movieList);
+                        }
+                )
         );
 
         binding.btnAsJson.setOnClickListener(v-> getServiceApi.getResultsAsJSON(apiKey).enqueue(new Callback<ResponseBody>() {
