@@ -9,15 +9,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
 import irawan.electroshock.tmdbmovie.BaseApplication;
+import irawan.electroshock.tmdbmovie.R;
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.data.database.Executor;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
@@ -150,6 +154,12 @@ public class HomeFragment extends Fragment {
     }
 
     private void initRecyclerView() {
+        MoviesFragment moviesFragment = new MoviesFragment();
+        FragmentManager fragmentManager = this.requireActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.moviesFrameLayout, moviesFragment);
+        transaction.commit();
+
 //        binding.moviesFrameLayout.setLayoutManager(new LinearLayoutManager(getContext()));
 //        adapter = new MoviesAdapter(movieList, getContext());
 //        binding.moviesFrameLayout.setAdapter(adapter);

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import javax.inject.Inject;
 
@@ -33,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
         ((BaseApplication) getApplication()).getNetComponent().inject(this);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new HomeFragment()).commit();
-
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameLayout, new HomeFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
