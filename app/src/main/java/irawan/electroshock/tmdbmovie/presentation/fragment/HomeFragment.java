@@ -1,6 +1,7 @@
 package irawan.electroshock.tmdbmovie.presentation.fragment;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class HomeFragment extends Fragment {
     private HomeFragmentBinding binding;
     private MoviesViewModel mViewModel;
     private MoviesAdapter adapter;
-    private ArrayList<Movies> movieList =  new ArrayList<>();
+    private final ArrayList<Movies> movieList =  new ArrayList<>();
 
     @Inject
     MoviesViewModelFactory mViewModelFactory;
@@ -186,6 +188,16 @@ public class HomeFragment extends Fragment {
         MoviesFragment moviesFragment = new MoviesFragment();
 
         if(screenPicker == 1 || screenPicker == 3 || screenPicker == 4){
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("MoviesData", moviesList);
+            moviesFragment.setArguments(bundle);
+
+            Bundle getData = this.getArguments();
+            if(bundle != null){
+                ArrayList<Movies> moviesLists = (ArrayList<Movies>) bundle.getSerializable("MoviesData");
+                Log.d(TAG, String.valueOf(moviesLists));
+            }
+
             transaction.addToBackStack("Home Fragment");
             transaction.replace(R.id.frameLayout, moviesFragment);
             transaction.commit();
