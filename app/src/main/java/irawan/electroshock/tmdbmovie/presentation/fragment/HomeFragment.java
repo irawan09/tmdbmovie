@@ -156,12 +156,13 @@ public class HomeFragment extends Fragment {
     private void initMovieFragmentView() {
         MoviesFragment moviesFragment = new MoviesFragment();
         FragmentManager fragmentManager = this.requireActivity().getSupportFragmentManager();
+        fragmentManager.popBackStack();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.frameLayout, moviesFragment);
         transaction.addToBackStack("Home Fragment");
         transaction.commit();
-        fragmentManager.popBackStack();
+
 
 //        binding.moviesFrameLayout.setLayoutManager(new LinearLayoutManager(getContext()));
 //        adapter = new MoviesAdapter(movieList, getContext());
