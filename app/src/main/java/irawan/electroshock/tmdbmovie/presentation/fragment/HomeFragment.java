@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -37,6 +38,7 @@ public class HomeFragment extends Fragment {
 
     private static final String TAG = "Home";
     private static final String apiKey = "9edf3fee29984e86d8be8170d810dd71";
+    private int screenPicker = 0;
     private HomeFragmentBinding binding;
     private MoviesViewModel mViewModel;
     private MoviesAdapter adapter;
@@ -73,10 +75,10 @@ public class HomeFragment extends Fragment {
 
         mViewModel = new ViewModelProvider(this, mViewModelFactory).get(MoviesViewModel.class);
 
-
         binding.btnAsModel.setOnClickListener(v ->
                 mViewModel.moviesGetDataObject().observe(getViewLifecycleOwner(),
                         movies -> {
+                            screenPicker = 1;
                             for(int i =0;i< movies.size(); i++){
                                 Log.d("Remote Data" ,String.valueOf(movies.get(i).getTitle()));
                                 String title = movies.get(i).getTitle();
@@ -89,10 +91,11 @@ public class HomeFragment extends Fragment {
                                 movie.setOverview(description);
 
                                 movieList.add(movie);
-//                                Log.d("Remote data: ", String.valueOf(movieList));
+//                                Log.d("Remote data: ", String.valueOf(movieList.size()));
                             }
 //                            adapter.updateList(movieList);
-                            initMovieFragmentView();
+//                            Log.d("Remote data: ", String.valueOf(movieList.size()));
+                            initMovieFragmentView(screenPicker);
                         }
                 )
         );
@@ -102,6 +105,7 @@ public class HomeFragment extends Fragment {
                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                         if (response.body() != null) {
                             try {
+                                screenPicker = 2;
                                 Log.d(TAG, "onResponseJSON: "+response.body().string());
                                 String data = response.body().string();
 
@@ -120,7 +124,7 @@ public class HomeFragment extends Fragment {
 //                                } else {
 //                                    newString= (String) savedInstanceState.getSerializable("STRING_I_NEED");
 //                                }
-
+                                initMovieFragmentView(screenPicker);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -136,33 +140,39 @@ public class HomeFragment extends Fragment {
 
         binding.btnAsObservable.setOnClickListener(v->
                 mViewModel.moviesObservableGetData().observe(getViewLifecycleOwner(), movies -> {
-
+                    screenPicker = 3;
                     for(int i=0;i<movies.size(); i++){
                         Log.d("Observable data", String.valueOf(movies.get(i).getTitle()));
                     }
+                    initMovieFragmentView(screenPicker);
                 })
         );
 
         binding.btnAsDatabase.setOnClickListener(v->{
             Executor.IOThread(() -> {
+                screenPicker = 4;
                     List<Movies> databaseData = mViewModel.getDatabaseData();
                     for (int i = 0; i < databaseData.size();i++){
                         Log.d("Database", String.valueOf(databaseData.get(i).getTitle()));
                     }
+                    initMovieFragmentView(screenPicker);
                 });
         });
     }
 
-    private void initMovieFragmentView() {
-        MoviesFragment moviesFragment = new MoviesFragment();
+    private void initMovieFragmentView(int screenPicker) {
         FragmentManager fragmentManager = this.requireActivity().getSupportFragmentManager();
         fragmentManager.popBackStack();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.addToBackStack(null);
-        transaction.replace(R.id.frameLayout, moviesFragment);
-        transaction.addToBackStack("Home Fragment");
-        transaction.commit();
+        MoviesFragment moviesFragment = new MoviesFragment();
 
+        if(screenPicker == 1 || screenPicker == 3 || screenPicker == 4){
+            transaction.addToBackStack("Home Fragment");
+            transaction.replace(R.id.frameLayout, moviesFragment);
+            transaction.commit();
+        } else {
+            requireActivity().finish();
+        }
 
 //        binding.moviesFrameLayout.setLayoutManager(new LinearLayoutManager(getContext()));
 //        adapter = new MoviesAdapter(movieList, getContext());
