@@ -1,153 +1,66 @@
 package irawan.electroshock.tmdbmovie.presentation.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import irawan.electroshock.tmdbmovie.R;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import irawan.electroshock.tmdbmovie.BaseApplication;
-import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
-import irawan.electroshock.tmdbmovie.data.database.Executor;
-import irawan.electroshock.tmdbmovie.data.model.Movies;
-import irawan.electroshock.tmdbmovie.databinding.MoviesFragmentBinding;
-import irawan.electroshock.tmdbmovie.di.module.MoviesUseCase;
-import irawan.electroshock.tmdbmovie.presentation.adapter.MoviesAdapter;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link MoviesFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class MoviesFragment extends Fragment {
 
-    private static final String TAG = "Home";
-    private static final String apiKey = "9edf3fee29984e86d8be8170d810dd71";
-    private MoviesFragmentBinding binding;
-    private MoviesViewModel mViewModel;
-    private MoviesAdapter adapter;
-    private ArrayList<Movies> movieList =  new ArrayList<>();
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
-    @Inject
-    MoviesViewModelFactory mViewModelFactory;
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
-    @Inject
-    MoviesUseCase moviesUseCase;
+    public MoviesFragment() {
+        // Required empty public constructor
+    }
 
-    @Inject
-    Retrofit retrofit;
-
-    public static MoviesFragment newInstance() {
-        return new MoviesFragment();
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment MoviesFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static MoviesFragment newInstance(String param1, String param2) {
+        MoviesFragment fragment = new MoviesFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-
-        binding = MoviesFragmentBinding.inflate(inflater,container,false);
-        return binding.getRoot();
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        ((BaseApplication) this.requireActivity().getApplication()).getNetComponent().inject(this);
-
-        ServiceApi getServiceApi = retrofit.create(ServiceApi.class);
-
-        mViewModel = new ViewModelProvider(this, mViewModelFactory).get(MoviesViewModel.class);
-
-
-        binding.btnAsModel.setOnClickListener(v ->
-                mViewModel.moviesGetDataObject().observe(getViewLifecycleOwner(),
-                        movies -> {
-                            for(int i =0;i< movies.size(); i++){
-//                                Log.d("Remote Data" ,String.valueOf(movies.get(i).getTitle()));
-                                String title = movies.get(i).getTitle();
-                                String posterPath = movies.get(i).getPosterPath();
-                                String description = movies.get(i).getOverview();
-
-                                Movies movie = new Movies();
-                                movie.setTitle(title);
-                                movie.setPosterPath(posterPath);
-                                movie.setOverview(description);
-
-                                movieList.add(movie);
-//                                Log.d("Remote data: ", String.valueOf(movieList));
-                            }
-//                            adapter.updateList(movieList);
-                        }
-                )
-        );
-
-        binding.btnAsJson.setOnClickListener(v-> getServiceApi.getResultsAsJSON(apiKey).enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                        if (response.body() != null) {
-                            try {
-                                Log.d(TAG, "onResponseJSON: "+response.body().string());
-                                String data = response.body().string();
-
-//                                Intent i = new Intent(FirstScreen.this, SecondScreen.class);
-//                                String strName = null;
-//                                i.putExtra("STRING_I_NEED", strName);
-//
-//                                String newString;
-//                                if (savedInstanceState == null) {
-//                                    Bundle extras = getIntent().getExtras();
-//                                    if(extras == null) {
-//                                        newString= null;
-//                                    } else {
-//                                        newString= extras.getString("STRING_I_NEED");
-//                                    }
-//                                } else {
-//                                    newString= (String) savedInstanceState.getSerializable("STRING_I_NEED");
-//                                }
-
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                        Log.d(TAG, "onFailure"+t.getMessage());
-                    }
-                })
-        );
-
-        binding.btnAsObservable.setOnClickListener(v->
-                mViewModel.moviesObservableGetData().observe(getViewLifecycleOwner(), movies -> {
-
-                    for(int i=0;i<movies.size(); i++){
-                        Log.d("Observable data", String.valueOf(movies.get(i).getTitle()));
-                    }
-                })
-        );
-
-        binding.btnAsDatabase.setOnClickListener(v->{
-            Executor.IOThread(() -> {
-                    List<Movies> databaseData = mViewModel.getDatabaseData();
-                    for (int i = 0; i < databaseData.size();i++){
-                        Log.d("Database", String.valueOf(databaseData.get(i).getTitle()));
-                    }
-                });
-        });
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.movies_fragment, container, false);
     }
 }

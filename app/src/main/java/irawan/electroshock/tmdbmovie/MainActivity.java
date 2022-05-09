@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 import irawan.electroshock.tmdbmovie.databinding.ActivityMainBinding;
 import irawan.electroshock.tmdbmovie.di.module.MoviesUseCase;
-import irawan.electroshock.tmdbmovie.presentation.fragment.MoviesFragment;
+import irawan.electroshock.tmdbmovie.presentation.fragment.HomeFragment;
 import irawan.electroshock.tmdbmovie.presentation.fragment.MoviesViewModelFactory;
 import retrofit2.Retrofit;
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         ((BaseApplication) getApplication()).getNetComponent().inject(this);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new MoviesFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new HomeFragment()).commit();
 
     }
 }
