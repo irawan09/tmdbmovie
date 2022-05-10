@@ -6,7 +6,7 @@ TMDB is a community-driven movie and television series database. Since 2008, all
 4. RxJava
 5. Room
 6. Dagger2
-7. Glide
+7. Picasso
 8. Lottie
 9. AndroidX
 10. ViewBinding
