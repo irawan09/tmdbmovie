@@ -2,7 +2,6 @@ package irawan.electroshock.tmdbmovie.presentation.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,13 +9,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import irawan.electroshock.tmdbmovie.R;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.databinding.MovieCardBinding;
 
@@ -49,14 +45,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         Log.i(TAG, image);
         holder.itemBinding.movieTitle.setText(title);
 
-        RequestBuilder<Drawable> requestBuilder = Glide.with(holder.itemView.getContext())
-                .asDrawable().sizeMultiplier(0.5f);
-
-        Glide.with(context)
+        Picasso.with(context)
                 .load("https://image.tmdb.org/t/p/w500"+image)
-                .thumbnail(requestBuilder)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .placeholder(R.color.cardview_dark_background)
                 .into(holder.itemBinding.movieImage);
 
         holder.itemBinding.movieDescription.setText(overview);
