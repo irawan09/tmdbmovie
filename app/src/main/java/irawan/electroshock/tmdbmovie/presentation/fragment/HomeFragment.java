@@ -1,5 +1,6 @@
 package irawan.electroshock.tmdbmovie.presentation.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -184,6 +185,11 @@ public class HomeFragment extends Fragment {
 
         if(screenPicker == 1 || screenPicker == 3 || screenPicker == 4){
             MoviesFragment moviesFragment = new MoviesFragment();
+            Intent intent = new Intent(getActivity(), MoviesFragment.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("MoviesData", moviesList);
+            moviesFragment.setArguments(bundle);
+
             transaction.addToBackStack("Home Fragment");
             transaction.replace(R.id.frameLayout, moviesFragment);
             transaction.commit();

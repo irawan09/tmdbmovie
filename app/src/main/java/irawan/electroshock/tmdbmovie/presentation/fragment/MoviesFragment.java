@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +38,16 @@ public class MoviesFragment extends Fragment {
         return moviesFragmentBinding.getRoot();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Bundle getData = this.getArguments();
+        if(getData != null){
+            ArrayList<Movies> moviesLists = (ArrayList<Movies>) getData.getSerializable("MoviesData");
+            Log.d(TAG, String.valueOf(moviesLists));
+        }
 
         adapter = new MoviesAdapter(moviesArrayList, getContext());
         moviesFragmentBinding.moviesRecyclerView.setAdapter(adapter);
