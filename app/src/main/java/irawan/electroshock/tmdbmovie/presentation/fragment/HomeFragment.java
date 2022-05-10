@@ -1,7 +1,6 @@
 package irawan.electroshock.tmdbmovie.presentation.fragment;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +25,6 @@ import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.data.database.Executor;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.databinding.HomeFragmentBinding;
-import irawan.electroshock.tmdbmovie.di.module.MoviesUseCase;
 import irawan.electroshock.tmdbmovie.presentation.adapter.MoviesAdapter;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -49,9 +46,6 @@ public class HomeFragment extends Fragment {
     MoviesViewModelFactory mViewModelFactory;
 
     @Inject
-    MoviesUseCase moviesUseCase;
-
-    @Inject
     Retrofit retrofit;
 
     public static HomeFragment newInstance() {
@@ -59,7 +53,8 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
         binding = HomeFragmentBinding.inflate(inflater,container,false);
@@ -186,12 +181,17 @@ public class HomeFragment extends Fragment {
         FragmentManager fragmentManager = this.requireActivity().getSupportFragmentManager();
         fragmentManager.popBackStack();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        MoviesFragment moviesFragment = new MoviesFragment();
 
         if(screenPicker == 1 || screenPicker == 3 || screenPicker == 4){
+            MoviesFragment moviesFragment = new MoviesFragment();
+            transaction.addToBackStack("Home Fragment");
+            transaction.replace(R.id.frameLayout, moviesFragment);
+            transaction.commit();
+        } else {
+            JSONFragment jsonFragment = new JSONFragment();
             Bundle bundle = new Bundle();
             bundle.putSerializable("MoviesData", moviesList);
-            moviesFragment.setArguments(bundle);
+            jsonFragment.setArguments(bundle);
 
             Bundle getData = this.getArguments();
             if(getData != null){
@@ -200,10 +200,8 @@ public class HomeFragment extends Fragment {
             }
 
             transaction.addToBackStack("Home Fragment");
-            transaction.replace(R.id.frameLayout, moviesFragment);
+            transaction.replace(R.id.frameLayout, jsonFragment);
             transaction.commit();
-        } else {
-            requireActivity().finish();
         }
 
 //        binding.moviesFrameLayout.setLayoutManager(new LinearLayoutManager(getContext()));

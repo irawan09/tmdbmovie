@@ -15,6 +15,7 @@ import irawan.electroshock.tmdbmovie.di.module.DatabaseModule;
 import irawan.electroshock.tmdbmovie.di.module.MoviesRepositoryModule;
 import irawan.electroshock.tmdbmovie.di.module.NetworkModule;
 import irawan.electroshock.tmdbmovie.presentation.fragment.HomeFragment;
+import irawan.electroshock.tmdbmovie.presentation.fragment.JSONFragment;
 
 @Singleton
 @Component(modules = {AppModule.class, NetworkModule.class, MoviesRepositoryModule.class, DatabaseModule.class})
@@ -22,6 +23,7 @@ public interface AppComponent {
     void inject(MainActivity mainActivity);
     void inject(BaseApplication baseApplication);
     void inject(HomeFragment homeFragment);
+    void inject(JSONFragment jsonFragment);
 
     @ApplicationContext
     Context getContext();
