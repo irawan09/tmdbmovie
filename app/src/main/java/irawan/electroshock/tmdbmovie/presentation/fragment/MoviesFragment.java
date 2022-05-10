@@ -23,7 +23,7 @@ public class MoviesFragment extends Fragment {
     private static final String TAG = "MoviesFragment data";
     private MoviesFragmentBinding moviesFragmentBinding;
     private MoviesAdapter adapter;
-    private final ArrayList<Movies> moviesArrayList = new ArrayList<>();
+    private ArrayList<Movies> moviesArrayList = new ArrayList<>();
 
     public static MoviesFragment newInstance() {
         return new MoviesFragment();
@@ -45,13 +45,12 @@ public class MoviesFragment extends Fragment {
 
         Bundle getData = this.getArguments();
         if(getData != null){
-            ArrayList<Movies> moviesLists = (ArrayList<Movies>) getData.getSerializable("MoviesData");
-            Log.d(TAG, String.valueOf(moviesLists));
+            moviesArrayList = (ArrayList<Movies>) getData.getSerializable("MoviesData");
+            Log.d(TAG, String.valueOf(moviesArrayList.size()));
         }
 
         adapter = new MoviesAdapter(moviesArrayList, getContext());
         moviesFragmentBinding.moviesRecyclerView.setAdapter(adapter);
-
-
+        moviesArrayList.clear();
     }
 }

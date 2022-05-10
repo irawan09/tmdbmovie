@@ -88,10 +88,7 @@ public class HomeFragment extends Fragment {
                                 movie.setOverview(description);
 
                                 movieList.add(movie);
-//                                Log.d("Remote data: ", String.valueOf(movieList.size()));
                             }
-//                            adapter.updateList(movieList);
-//                            Log.d("Remote data: ", String.valueOf(movieList.size()));
                             initMovieFragmentView(screenPicker, movieList);
                         }
                 )

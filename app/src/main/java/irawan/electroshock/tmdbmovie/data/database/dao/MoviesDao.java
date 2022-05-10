@@ -15,7 +15,7 @@ public interface MoviesDao {
     @Query("SELECT * FROM tb_movies")
     public List<Movies> getAll();
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Movies... movieEntities);
 
     @Delete
