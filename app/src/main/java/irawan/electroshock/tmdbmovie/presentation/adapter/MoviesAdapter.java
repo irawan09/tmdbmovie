@@ -25,7 +25,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     String TAG = "MoviesAdapter";
     ArrayList<Movies> movieList;
-    private Context context;
+    private final Context context;
     MovieCardBinding binding;
 
     public MoviesAdapter(ArrayList<Movies> movieList, Context context) {
@@ -43,21 +43,23 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+        String title = movieList.get(position).getTitle();
         String image = movieList.get(position).getPosterPath();
+        String overview = movieList.get(position).getOverview();
         Log.i(TAG, image);
-        holder.itemBinding.movieTitle.setText(movieList.get(position).getTitle());
+        holder.itemBinding.movieTitle.setText(title);
 
         RequestBuilder<Drawable> requestBuilder = Glide.with(holder.itemView.getContext())
                 .asDrawable().sizeMultiplier(0.5f);
 
         Glide.with(context)
-                .load("https://image.tmdb.org/t/p/w500"+movieList.get(position).getPosterPath())
+                .load("https://image.tmdb.org/t/p/w500"+image)
                 .thumbnail(requestBuilder)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.color.cardview_dark_background)
                 .into(holder.itemBinding.movieImage);
 
-        holder.itemBinding.movieDescription.setText(movieList.get(position).getOverview());
+        holder.itemBinding.movieDescription.setText(overview);
 
     }
 
@@ -68,8 +70,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     /* ----------------------------------------------------------- */
 
-    class MovieViewHolder extends RecyclerView.ViewHolder {
-        private MovieCardBinding itemBinding;
+    static class MovieViewHolder extends RecyclerView.ViewHolder {
+        private final MovieCardBinding itemBinding;
 
         public MovieViewHolder(MovieCardBinding itemBinding) {
             super(itemBinding.getRoot());

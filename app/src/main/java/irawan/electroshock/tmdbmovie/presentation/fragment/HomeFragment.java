@@ -206,9 +206,5 @@ public class HomeFragment extends Fragment {
             transaction.replace(R.id.frameLayout, jsonFragment);
             transaction.commit();
         }
-
-//        binding.moviesFrameLayout.setLayoutManager(new LinearLayoutManager(getContext()));
-//        adapter = new MoviesAdapter(movieList, getContext());
-//        binding.moviesFrameLayout.setAdapter(adapter);
     }
 }
