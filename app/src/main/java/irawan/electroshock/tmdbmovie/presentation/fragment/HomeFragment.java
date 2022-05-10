@@ -37,7 +37,7 @@ import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment {
 
-    private static final String TAG = "Home";
+    private static final String TAG = "Home Data";
     private static final String apiKey = "9edf3fee29984e86d8be8170d810dd71";
     private int screenPicker = 0;
     private HomeFragmentBinding binding;
@@ -181,6 +181,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    @SuppressWarnings("unchecked")
     private void initMovieFragmentView(int screenPicker, ArrayList<Movies> moviesList) {
         FragmentManager fragmentManager = this.requireActivity().getSupportFragmentManager();
         fragmentManager.popBackStack();
@@ -193,8 +194,8 @@ public class HomeFragment extends Fragment {
             moviesFragment.setArguments(bundle);
 
             Bundle getData = this.getArguments();
-            if(bundle != null){
-                ArrayList<Movies> moviesLists = (ArrayList<Movies>) bundle.getSerializable("MoviesData");
+            if(getData != null){
+                ArrayList<Movies> moviesLists = (ArrayList<Movies>) getData.getSerializable("MoviesData");
                 Log.d(TAG, String.valueOf(moviesLists));
             }
 
