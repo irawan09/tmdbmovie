@@ -1,20 +1,17 @@
 package irawan.electroshock.tmdbmovie.presentation.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import java.util.ArrayList;
 
-import irawan.electroshock.tmdbmovie.R;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.databinding.MoviesFragmentBinding;
 import irawan.electroshock.tmdbmovie.presentation.adapter.MoviesAdapter;
@@ -50,10 +47,8 @@ public class MoviesFragment extends Fragment {
             moviesFragmentBinding.moviesRecyclerView.setAdapter(adapter);
 
             moviesArrayList = (ArrayList<Movies>) getData.getSerializable("MoviesData");
-            Log.d(TAG, String.valueOf(moviesArrayList.size()));
             adapter.updateList(moviesArrayList);
 
         }
-
     }
 }

@@ -7,7 +7,7 @@
     android:layout_marginTop="6dp"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
-    card_view:cardBackgroundColor="#FFFF"
+    card_view:cardBackgroundColor="#79C1FA"
     card_view:cardCornerRadius="8dp"
     card_view:contentPadding="10dp"
     android:foreground="?selectableItemBackground"
@@ -41,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:background="@color/grey"
             android:padding="8dp">
 
             <ImageView
@@ -56,7 +57,8 @@
             <TextView
                 android:id="@+id/movie_description"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

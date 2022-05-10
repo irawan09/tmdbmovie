@@ -42,7 +42,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         String title = movieList.get(position).getTitle();
         String image = movieList.get(position).getPosterPath();
         String overview = movieList.get(position).getOverview();
-        Log.i(TAG, image);
         holder.itemBinding.movieTitle.setText(title);
 
         Picasso.with(context)
