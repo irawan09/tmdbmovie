@@ -49,7 +49,7 @@ public class JSONFragment extends Fragment {
             data = getData.getString("MoviesData");
 //            jsonFragmentBinding.jsonString.setText("There are: "+data.length()+" words");
             if(!data.isEmpty()){
-                Log.d(TAG, String.valueOf(data));
+                Log.d(TAG, data);
                 jsonFragmentBinding.jsonString.setText(getResources().getString(R.string.hello_blank_fragment));
             }
         }
