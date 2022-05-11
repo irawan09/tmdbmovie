@@ -125,22 +125,9 @@ public class HomeFragment extends Fragment {
         );
 
         binding.btnAsObservable.setOnClickListener(v->
-                mViewModel.moviesObservableGetData().observe(getViewLifecycleOwner(), movies -> {
-                    for(int i=0;i<movies.size(); i++){
-                        Log.d("Observable data", String.valueOf(movies.get(i).getTitle()));
-                        String title = movies.get(i).getTitle();
-                        String posterPath = movies.get(i).getPosterPath();
-                        String description = movies.get(i).getOverview();
-
-                        Movies movie = new Movies();
-                        movie.setTitle(title);
-                        movie.setPosterPath(posterPath);
-                        movie.setOverview(description);
-
-                        movieList.add(movie);
-                    }
-                    initMovieFragmentView(movieList);
-                })
+                mViewModel.moviesObservableGetData().observe(
+                        getViewLifecycleOwner(),
+                        this::initMovieFragmentView)
         );
 
         binding.btnAsDatabase.setOnClickListener(v->{
