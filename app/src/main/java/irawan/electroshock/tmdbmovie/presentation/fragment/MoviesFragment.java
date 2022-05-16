@@ -28,8 +28,9 @@ public class MoviesFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
         moviesFragmentBinding = MoviesFragmentBinding.inflate(inflater, container, false);
         return moviesFragmentBinding.getRoot();
@@ -37,7 +38,8 @@ public class MoviesFragment extends Fragment {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         Bundle getData = this.getArguments();

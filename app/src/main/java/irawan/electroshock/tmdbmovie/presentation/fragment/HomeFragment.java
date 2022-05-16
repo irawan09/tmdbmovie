@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -95,7 +96,7 @@ public class HomeFragment extends Fragment {
                         if (response.body() != null) {
                             try {
                                 String data = response.body().string();
-                                Log.d(TAG, "onResponseJSON: "+data);
+//                                Log.d(TAG, "onResponseJSON: "+data);
 
                                 JSONFragment jsonFragment = new JSONFragment();
                                 Bundle bundle = new Bundle();
@@ -109,8 +110,6 @@ public class HomeFragment extends Fragment {
                                 transaction.addToBackStack("Home Fragment");
                                 transaction.replace(R.id.frameLayout, jsonFragment);
                                 transaction.commit();
-
-                                initMovieFragmentView(movieList);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
