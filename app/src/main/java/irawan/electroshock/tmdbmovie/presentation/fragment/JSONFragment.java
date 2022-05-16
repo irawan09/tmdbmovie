@@ -43,7 +43,6 @@ public class JSONFragment extends Fragment {
         if(getData != null){
             data = getData.getString("MoviesData");
             if(!data.isEmpty()){
-//                Log.d(TAG, data);
                 jsonFragmentBinding.jsonString.setText(data);
             }
         }

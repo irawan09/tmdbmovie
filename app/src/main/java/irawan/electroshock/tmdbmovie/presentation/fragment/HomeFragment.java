@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProvider;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -96,7 +95,7 @@ public class HomeFragment extends Fragment {
                         if (response.body() != null) {
                             try {
                                 String data = response.body().string();
-//                                Log.d(TAG, "onResponseJSON: "+data);
+                                Log.d(TAG, "onResponseJSON: "+data);
 
                                 JSONFragment jsonFragment = new JSONFragment();
                                 Bundle bundle = new Bundle();
@@ -129,25 +128,24 @@ public class HomeFragment extends Fragment {
                         this::initMovieFragmentView)
         );
 
-        binding.btnAsDatabase.setOnClickListener(v->{
-            Executor.IOThread(() -> {
-                    List<Movies> databaseData = mViewModel.getDatabaseData();
-                    for (int i = 0; i < databaseData.size();i++){
-                        Log.d("Database", String.valueOf(databaseData.get(i).getTitle()));
-                        String title = databaseData.get(i).getTitle();
-                        String posterPath = databaseData.get(i).getPosterPath();
-                        String description = databaseData.get(i).getOverview();
+        binding.btnAsDatabase.setOnClickListener(v->
+                Executor.IOThread(() -> {
+                List<Movies> databaseData = mViewModel.getDatabaseData();
+                for (int i = 0; i < databaseData.size();i++){
+                    Log.d("Database", String.valueOf(databaseData.get(i).getTitle()));
+                    String title = databaseData.get(i).getTitle();
+                    String posterPath = databaseData.get(i).getPosterPath();
+                    String description = databaseData.get(i).getOverview();
 
-                        Movies movie = new Movies();
-                        movie.setTitle(title);
-                        movie.setPosterPath(posterPath);
-                        movie.setOverview(description);
+                    Movies movie = new Movies();
+                    movie.setTitle(title);
+                    movie.setPosterPath(posterPath);
+                    movie.setOverview(description);
 
-                        movieList.add(movie);
-                    }
-                    initMovieFragmentView(movieList);
-                });
-        });
+                    movieList.add(movie);
+                }
+                initMovieFragmentView(movieList);
+            }));
     }
 
     private void initMovieFragmentView(ArrayList<Movies> moviesList) {
