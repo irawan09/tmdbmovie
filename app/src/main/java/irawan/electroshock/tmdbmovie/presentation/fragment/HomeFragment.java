@@ -25,6 +25,8 @@ import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.data.database.Executor;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.databinding.HomeFragmentBinding;
+import irawan.electroshock.tmdbmovie.presentation.fragment.viewmodel.MoviesViewModel;
+import irawan.electroshock.tmdbmovie.presentation.fragment.viewmodel.MoviesViewModelFactory;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;

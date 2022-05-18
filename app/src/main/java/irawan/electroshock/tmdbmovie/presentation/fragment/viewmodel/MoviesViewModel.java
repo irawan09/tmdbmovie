@@ -1,4 +1,4 @@
-package irawan.electroshock.tmdbmovie.presentation.fragment;
+package irawan.electroshock.tmdbmovie.presentation.fragment.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
