@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import javax.inject.Inject;
 
 import irawan.electroshock.tmdbmovie.databinding.ActivityMainBinding;
-import irawan.electroshock.tmdbmovie.di.module.MoviesUseCase;
+import irawan.electroshock.tmdbmovie.di.module.MoviesUseCaseModule;
 import irawan.electroshock.tmdbmovie.presentation.fragment.HomeFragment;
 import irawan.electroshock.tmdbmovie.presentation.fragment.viewmodel.MoviesViewModelFactory;
 import retrofit2.Retrofit;
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     MoviesViewModelFactory mViewModelFactory;
 
     @Inject
-    MoviesUseCase moviesUseCase;
+    MoviesUseCaseModule moviesUseCaseModule;
 
     @SuppressLint("CutPasteId")
     @Override

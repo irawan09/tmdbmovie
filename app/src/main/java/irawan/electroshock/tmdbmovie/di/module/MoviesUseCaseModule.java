@@ -13,12 +13,12 @@ import dagger.Provides;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
 
 @Module
-public class MoviesUseCase {
+public class MoviesUseCaseModule {
 
     MoviesRepositoryModule repository;
 
     @Inject
-    public MoviesUseCase(MoviesRepositoryModule repository){
+    public MoviesUseCaseModule(MoviesRepositoryModule repository){
         this.repository= repository;
     }
 

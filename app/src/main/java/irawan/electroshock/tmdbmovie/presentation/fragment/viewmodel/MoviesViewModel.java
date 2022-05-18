@@ -9,27 +9,27 @@ import java.util.List;
 import javax.inject.Inject;
 
 import irawan.electroshock.tmdbmovie.data.model.Movies;
-import irawan.electroshock.tmdbmovie.di.module.MoviesUseCase;
+import irawan.electroshock.tmdbmovie.di.module.MoviesUseCaseModule;
 
 public class MoviesViewModel extends ViewModel {
 
-    MoviesUseCase moviesUseCase;
+    MoviesUseCaseModule moviesUseCaseModule;
 
     @Inject
-    public MoviesViewModel(MoviesUseCase moviesUseCase){
-        this.moviesUseCase = moviesUseCase;
+    public MoviesViewModel(MoviesUseCaseModule moviesUseCaseModule){
+        this.moviesUseCaseModule = moviesUseCaseModule;
     }
 
     public MutableLiveData<ArrayList<Movies>> moviesGetDataObject(){
-        return moviesUseCase.provideMoviesGetDataObject();
+        return moviesUseCaseModule.provideMoviesGetDataObject();
     }
 
     public List<Movies> getDatabaseData(){
-        return moviesUseCase.provideGetDatabaseData();
+        return moviesUseCaseModule.provideGetDatabaseData();
     }
 
     public MutableLiveData<ArrayList<Movies>> moviesObservableGetData(){
-        return moviesUseCase.provideMoviesObservableGetData();
+        return moviesUseCaseModule.provideMoviesObservableGetData();
     }
 
 }

@@ -132,21 +132,8 @@ public class HomeFragment extends Fragment {
 
         binding.btnAsDatabase.setOnClickListener(v->
                 Executor.IOThread(() -> {
-                List<Movies> databaseData = mViewModel.getDatabaseData();
-                for (int i = 0; i < databaseData.size();i++){
-                    Log.d("Database", String.valueOf(databaseData.get(i).getTitle()));
-                    String title = databaseData.get(i).getTitle();
-                    String posterPath = databaseData.get(i).getPosterPath();
-                    String description = databaseData.get(i).getOverview();
-
-                    Movies movie = new Movies();
-                    movie.setTitle(title);
-                    movie.setPosterPath(posterPath);
-                    movie.setOverview(description);
-
-                    movieList.add(movie);
-                }
-                initMovieFragmentView(movieList);
+                ArrayList<Movies> databaseData = (ArrayList<Movies>) mViewModel.getDatabaseData();
+                initMovieFragmentView(databaseData);
             }));
     }
 
