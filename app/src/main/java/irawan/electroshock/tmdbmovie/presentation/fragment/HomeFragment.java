@@ -15,17 +15,22 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 import irawan.electroshock.tmdbmovie.BaseApplication;
 import irawan.electroshock.tmdbmovie.R;
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.data.database.Executor;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.databinding.HomeFragmentBinding;
+import irawan.electroshock.tmdbmovie.presentation.adapter.MoviesPagingAdapter;
 import irawan.electroshock.tmdbmovie.presentation.fragment.viewmodel.MoviesViewModel;
 import irawan.electroshock.tmdbmovie.presentation.fragment.viewmodel.MoviesViewModelFactory;
+import irawan.electroshock.tmdbmovie.utils.MovieComparator;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +44,7 @@ public class HomeFragment extends Fragment {
     private HomeFragmentBinding binding;
     private MoviesViewModel mViewModel;
     private final ArrayList<Movies> movieList =  new ArrayList<>();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     MoviesViewModelFactory mViewModelFactory;
@@ -68,6 +74,15 @@ public class HomeFragment extends Fragment {
         ServiceApi getServiceApi = retrofit.create(ServiceApi.class);
 
         mViewModel = new ViewModelProvider(this, mViewModelFactory).get(MoviesViewModel.class);
+
+        MoviesPagingAdapter moviesPagingAdapter = new MoviesPagingAdapter(
+                new MovieComparator(), this.getContext());
+//
+//        Disposable disposable = mViewModel.pagingDataFlow.subscribe(moviesPagingData->
+//                moviesPagingAdapter.submitData(getLifecycle(), moviesPagingData));
+//
+//        compositeDisposable.add(disposable);
+//        Log.i(TAG, compositeDisposable.toString());
 
         binding.btnAsModel.setOnClickListener(v ->
                 mViewModel.moviesGetDataObject().observe(getViewLifecycleOwner(),
@@ -134,6 +149,12 @@ public class HomeFragment extends Fragment {
                 ArrayList<Movies> databaseData = (ArrayList<Movies>) mViewModel.getDatabaseData();
                 initMovieFragmentView(databaseData);
             }));
+
+        binding.btnAsObservablePaging.setOnClickListener(v->
+                Log.i(TAG, v.toString())
+
+
+                );
     }
 
     private void initMovieFragmentView(ArrayList<Movies> moviesList) {

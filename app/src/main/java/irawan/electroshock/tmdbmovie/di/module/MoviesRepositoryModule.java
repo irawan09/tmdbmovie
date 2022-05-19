@@ -22,6 +22,7 @@ import irawan.electroshock.tmdbmovie.data.database.AppDatabase;
 import irawan.electroshock.tmdbmovie.data.database.Executor;
 import irawan.electroshock.tmdbmovie.data.database.dao.MoviesDao;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
+import irawan.electroshock.tmdbmovie.data.model.ObservableMovies;
 import irawan.electroshock.tmdbmovie.data.model.Results;
 import irawan.electroshock.tmdbmovie.data.model.ResultsObservable;
 import retrofit2.Call;
@@ -95,6 +96,13 @@ public class MoviesRepositoryModule {
     public List<Movies> provideGetDatabaseData(){
         final MoviesDao moviesDao = database.moviesDao();
         return moviesDao.getAll();
+    }
+
+    @Provides
+    @Singleton
+    public List<ObservableMovies> provideGetObservablePagingDatabaseData(){
+        final MoviesDao moviesDao = database.moviesDao();
+        return moviesDao.getAllObservableMovies();
     }
 
     @Provides

@@ -1,6 +1,8 @@
 package irawan.electroshock.tmdbmovie.data.api;
 
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+import irawan.electroshock.tmdbmovie.data.model.ObservableMovies;
 import irawan.electroshock.tmdbmovie.data.model.Results;
 import irawan.electroshock.tmdbmovie.data.model.ResultsObservable;
 import okhttp3.ResponseBody;
@@ -17,4 +19,10 @@ public interface ServiceApi {
 
     @GET("movie/popular")
     Observable<ResultsObservable> getObservableMovies(@Query("api_key") String apiKey);
+
+    @GET("movie/popular")
+    Single<ObservableMovies> getObservableMoviesWithPaging(
+            @Query("api_key") String apiKey,
+            @Query("page") int page
+            );
 }

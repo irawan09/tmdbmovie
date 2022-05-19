@@ -32,6 +32,8 @@
             android:text="@string/electroshock"
             android:textFontWeight="10"
             android:textSize="32sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:textAlignment="center"/>
 
         <Button
