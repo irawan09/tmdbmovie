@@ -79,9 +79,9 @@ public class MovieDataSourceWithPagingModule extends RxPagingSource<Integer, Obs
                     movies.setOverview(overview);
                     movies.setPosterPath(posterPath);
                     movies.setReleaseDate(releaseDate);
-                        moviesArrayList.add(movies);
-                        moviesMutableLiveData.postValue(moviesArrayList);
-                        Executor.IOThread(() -> moviesDao.insertAllObservable(movies));
+                    moviesArrayList.add(movies);
+                    moviesMutableLiveData.postValue(moviesArrayList);
+                    Executor.IOThread(() -> moviesDao.insertAllObservable(movies));
 
                     return list;
                 })
@@ -92,5 +92,11 @@ public class MovieDataSourceWithPagingModule extends RxPagingSource<Integer, Obs
 
     private LoadResult<Integer, ObservableMovies> toLoadResult(List<ObservableMovies> movies, Integer page) {
         return new LoadResult.Page<>(movies, page == 1 ? null : page - 1, page + 1);
+    }
+
+    @Provides
+    @Singleton
+    public MutableLiveData<ArrayList<ObservableMovies>> provideLoadSingle(){
+        return moviesMutableLiveData;
     }
 }

@@ -62,6 +62,7 @@ public class MoviesViewModel extends ViewModel {
         CoroutineScope coroutineScope = ViewModelKt.getViewModelScope(this);
         PagingRx.cachedIn(pagingDataFlow, coroutineScope);
         Log.i(TAG, pagingDataFlow.toString());
+        Log.i(TAG, moviePagingSource.provideLoadSingle().toString());
     }
 
 }
