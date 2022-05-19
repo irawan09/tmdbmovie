@@ -1,5 +1,8 @@
 package irawan.electroshock.tmdbmovie.presentation.fragment.viewmodel;
 
+import android.nfc.Tag;
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelKt;
@@ -22,13 +25,13 @@ import kotlinx.coroutines.CoroutineScope;
 
 public class MoviesViewModel extends ViewModel {
 
+    private String TAG = "ViewModel data";
     MoviesUseCaseModule moviesUseCaseModule;
     public Flowable<PagingData<ObservableMovies>> pagingDataFlow;
 
     @Inject
     public MoviesViewModel(MoviesUseCaseModule moviesUseCaseModule){
         this.moviesUseCaseModule = moviesUseCaseModule;
-        init();
     }
 
     public MutableLiveData<ArrayList<Movies>> moviesGetDataObject(){
@@ -43,10 +46,9 @@ public class MoviesViewModel extends ViewModel {
         return moviesUseCaseModule.provideMoviesObservableGetData();
     }
 
-    private void init(){
+    public void init(){
         // Define Paging Source
         MovieDataSourceWithPagingModule moviePagingSource = new MovieDataSourceWithPagingModule();
-
         // Create new pager
         Pager<Integer, ObservableMovies> pager = new Pager<>(
                 new PagingConfig(20,    // pageSize - Count of items in one page
@@ -60,6 +62,7 @@ public class MoviesViewModel extends ViewModel {
         pagingDataFlow = PagingRx.getFlowable(pager);
         CoroutineScope coroutineScope = ViewModelKt.getViewModelScope(this);
         PagingRx.cachedIn(pagingDataFlow, coroutineScope);
+        Log.i(TAG, pagingDataFlow.toString());
     }
 
 }

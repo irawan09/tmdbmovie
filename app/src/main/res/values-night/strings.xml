@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">TMDBMovie</string>
     <string name="get_as_json">Get as JSON</string>
     <string name="get_as_model">Get as Model</string>
     <string name="imageFromMovie">Image From Movie</string>
     <string name="get_as_observable">Get as Observable</string>
     <string name="get_as_database">Get as Database</string>
+    <string name="get_as_flowable_paging">Get as Flowable Paging</string>
     <string name="electroshock">ELECTROSHOCK</string>
+    <string name="title_activity_home">HomeActivity</string>
 </resources>

@@ -5,7 +5,7 @@
     <string name="imageFromMovie">Image From Movie</string>
     <string name="get_as_observable">Get as Observable</string>
     <string name="get_as_database">Get as Database</string>
-    <string name="get_as_observable_paging">Get as Observable Paging</string>
+    <string name="get_as_flowable_paging">Get as Flowable Paging</string>
     <string name="electroshock">ELECTROSHOCK</string>
     <string name="title_activity_home">HomeActivity</string>
 </resources>

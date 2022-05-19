@@ -151,8 +151,8 @@ public class HomeFragment extends Fragment {
             }));
 
         binding.btnAsObservablePaging.setOnClickListener(v->
-                Log.i(TAG, v.toString())
-
+//                Log.i(TAG, v.toString())
+                mViewModel.init()
 
                 );
     }
