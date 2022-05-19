@@ -63,11 +63,11 @@
             android:text="@string/get_as_database" />
 
         <Button
-            android:id="@+id/btn_as_observable_paging"
+            android:id="@+id/btn_as_flowable_paging"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="@string/get_as_observable_paging" />
+            android:text="@string/get_as_flowable_paging" />
 
 
     </LinearLayout>

@@ -150,7 +150,7 @@ public class HomeFragment extends Fragment {
                 initMovieFragmentView(databaseData);
             }));
 
-        binding.btnAsObservablePaging.setOnClickListener(v->
+        binding.btnAsFlowablePaging.setOnClickListener(v->
 //                Log.i(TAG, v.toString())
                 mViewModel.init()
 

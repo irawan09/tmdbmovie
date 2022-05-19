@@ -1,6 +1,5 @@
 package irawan.electroshock.tmdbmovie.presentation.fragment.viewmodel;
 
-import android.nfc.Tag;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
