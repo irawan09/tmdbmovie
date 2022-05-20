@@ -75,15 +75,6 @@ public class HomeFragment extends Fragment {
 
         mViewModel = new ViewModelProvider(this, mViewModelFactory).get(MoviesViewModel.class);
 
-        MoviesPagingAdapter moviesPagingAdapter = new MoviesPagingAdapter(
-                new MovieComparator(), this.getContext());
-//
-//        Disposable disposable = mViewModel.pagingDataFlow.subscribe(moviesPagingData->
-//                moviesPagingAdapter.submitData(getLifecycle(), moviesPagingData));
-//
-//        compositeDisposable.add(disposable);
-//        Log.i(TAG, compositeDisposable.toString());
-
         binding.btnAsModel.setOnClickListener(v ->
                 mViewModel.moviesGetDataObject().observe(getViewLifecycleOwner(),
                         movies -> {
