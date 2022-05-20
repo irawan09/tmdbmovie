@@ -150,11 +150,17 @@ public class HomeFragment extends Fragment {
                 initMovieFragmentView(databaseData);
             }));
 
-        binding.btnAsFlowablePaging.setOnClickListener(v->
-//                Log.i(TAG, v.toString())
-                mViewModel.init()
+        binding.btnAsFlowablePaging.setOnClickListener(v -> {
+            PagingFragment pagingFragment = new PagingFragment();
 
-                );
+            FragmentManager fragmentManager = this.requireActivity().getSupportFragmentManager();
+            fragmentManager.popBackStack();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+            transaction.addToBackStack("Home Fragment");
+            transaction.replace(R.id.frameLayout, pagingFragment);
+            transaction.commit();
+        });
     }
 
     private void initMovieFragmentView(ArrayList<Movies> moviesList) {

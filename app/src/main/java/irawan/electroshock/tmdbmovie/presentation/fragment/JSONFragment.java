@@ -10,11 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import irawan.electroshock.tmdbmovie.databinding.JsonFragmentBinding;
+import irawan.electroshock.tmdbmovie.databinding.FragmentJsonBinding;
 
 public class JSONFragment extends Fragment {
 
-    private JsonFragmentBinding jsonFragmentBinding;
+    private FragmentJsonBinding jsonFragmentBinding;
 
     public static JSONFragment newInstance() {
         return new JSONFragment();
@@ -24,7 +24,7 @@ public class JSONFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        jsonFragmentBinding = JsonFragmentBinding.inflate(inflater, container, false);
+        jsonFragmentBinding = FragmentJsonBinding.inflate(inflater, container, false);
         return jsonFragmentBinding.getRoot();
     }
 

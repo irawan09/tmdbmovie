@@ -50,7 +50,7 @@ public class MoviesViewModel extends ViewModel {
         return pagingDataFlow;
     }
 
-    public void init(){
+    private void init(){
         // Define Paging Source
         MovieDataSourceWithPagingModule moviePagingSource = new MovieDataSourceWithPagingModule();
         // Create new pager

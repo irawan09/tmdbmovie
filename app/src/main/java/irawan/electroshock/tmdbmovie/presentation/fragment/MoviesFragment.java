@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 
 import irawan.electroshock.tmdbmovie.data.model.Movies;
-import irawan.electroshock.tmdbmovie.databinding.MoviesFragmentBinding;
+import irawan.electroshock.tmdbmovie.databinding.FragmentMoviesBinding;
 import irawan.electroshock.tmdbmovie.presentation.adapter.MoviesAdapter;
 
 public class MoviesFragment extends Fragment {
 
     private static final String TAG = "MoviesFragment data";
-    private MoviesFragmentBinding moviesFragmentBinding;
+    private FragmentMoviesBinding moviesFragmentBinding;
     private ArrayList<Movies> moviesArrayList = new ArrayList<>();
 
     public static MoviesFragment newInstance() {
@@ -32,7 +32,7 @@ public class MoviesFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        moviesFragmentBinding = MoviesFragmentBinding.inflate(inflater, container, false);
+        moviesFragmentBinding = FragmentMoviesBinding.inflate(inflater, container, false);
         return moviesFragmentBinding.getRoot();
     }
 
