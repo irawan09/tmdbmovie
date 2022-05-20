@@ -10,8 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import irawan.electroshock.tmdbmovie.R;
-import irawan.electroshock.tmdbmovie.databinding.FragmentJsonBinding;
 import irawan.electroshock.tmdbmovie.databinding.PagingFragmentBinding;
 
 public class PagingFragment extends Fragment {
