@@ -31,6 +31,7 @@ public class MoviesViewModel extends ViewModel {
     @Inject
     public MoviesViewModel(MoviesUseCaseModule moviesUseCaseModule){
         this.moviesUseCaseModule = moviesUseCaseModule;
+        init();
     }
 
     public MutableLiveData<ArrayList<Movies>> moviesGetDataObject(){
@@ -43,6 +44,10 @@ public class MoviesViewModel extends ViewModel {
 
     public MutableLiveData<ArrayList<Movies>> moviesObservableGetData(){
         return moviesUseCaseModule.provideMoviesObservableGetData();
+    }
+
+    public Flowable<PagingData<ObservableMovies>> moviesGetAsFlowable(){
+        return pagingDataFlow;
     }
 
     public void init(){
