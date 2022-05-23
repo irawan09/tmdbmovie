@@ -1,6 +1,7 @@
 package irawan.electroshock.tmdbmovie.di.module;
 
 import android.content.Context;
+import android.graphics.Movie;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -124,37 +125,36 @@ public class MoviesRepositoryModule {
 
     @Provides
     @Singleton
-    public MutableLiveData<ArrayList<Movies>> provideMoviesObservableGetData(){
+    public MutableLiveData<ArrayList<ObservableMovies>> provideMoviesObservableGetData(){
         final MoviesDao moviesDao = database.moviesDao();
         provideGetMoviesObservable()
                 .subscribeOn(Schedulers.io())
                 .map(observableMovies -> {
-                    ArrayList<Movies> list = observableMovies.getResultsObservable();
+                    ArrayList<ObservableMovies> list = observableMovies.getResultsObservable();
                     for(int i=0; i< list.size(); i++){
-                        Log.i("Line ", "---------------------------------------");
                         String id = observableMovies.getResultsObservable().get(i).getId();
                         String title = observableMovies.getResultsObservable().get(i).getTitle();
                         String overview = observableMovies.getResultsObservable().get(i).getOverview();
                         String posterPath = observableMovies.getResultsObservable().get(i).getPosterPath();
                         String releaseDate = observableMovies.getResultsObservable().get(i).getReleaseDate();
 
-                        Movies movies = new Movies();
+                        ObservableMovies movies = new ObservableMovies();
                         movies.setId(id);
                         movies.setTitle(title);
                         movies.setOverview(overview);
                         movies.setPosterPath(posterPath);
                         movies.setReleaseDate(releaseDate);
-                        moviesArrayList.add(movies);
+                        moviesFlowableArrayList.add(movies);
                         moviesMutableLiveData.postValue(moviesArrayList);
-                        Executor.IOThread(() -> moviesDao.insertAll(movies));
+                        Executor.IOThread(() -> moviesDao.insertAllObservable(movies));
                     }
                     return list;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(moviesMutableLiveData::setValue,
+                .subscribe(moviesFlowableMutableLiveData::setValue,
                         error-> Log.e(TAG, "getMovies: " + error.getMessage() ));
 
-        return moviesMutableLiveData;
+        return moviesFlowableMutableLiveData;
     }
 
     @Singleton
@@ -174,31 +174,32 @@ public class MoviesRepositoryModule {
 
         return api.getObservableMoviesWithPaging(apiKey, page)
                 .subscribeOn(Schedulers.io())
-                .map(observableMovies -> {
-                    List<ObservableMovies> list = new ArrayList<>();
-                    Log.i("Line ", "---------------------------------------");
-                    for(int i=0; i<observableMovies.getResultsObservable().size(); i++){
-                        String id = observableMovies.getResultsObservable().get(i).getId();
-                        String title = observableMovies.getResultsObservable().get(i).getTitle();
-                        String overview = observableMovies.getResultsObservable().get(i).getOverview();
-                        String posterPath = observableMovies.getResultsObservable().get(i).getPosterPath();
-                        String releaseDate = observableMovies.getResultsObservable().get(i).getReleaseDate();
-
-                        ObservableMovies movies = new ObservableMovies();
-                        movies.setId(id);
-                        movies.setTitle(title);
-                        movies.setOverview(overview);
-                        movies.setPosterPath(posterPath);
-                        movies.setReleaseDate(releaseDate);
-
-                        moviesFlowableArrayList.add(movies);
-                        moviesFlowableMutableLiveData.postValue(moviesFlowableArrayList);
-//                        Executor.IOThread(() -> moviesDao.insertAllObservable(movies));
-                    }
-
-                    return list;
-
-                })
+//                .map(observableMovies -> {
+//                    List<ObservableMovies> list = new ArrayList<>();
+//                    Log.i("Line ", "---------------------------------------");
+//                    for(int i=0; i<observableMovies.getResultsObservable().size(); i++){
+//                        String id = observableMovies.getResultsObservable().get(i).getId();
+//                        String title = observableMovies.getResultsObservable().get(i).getTitle();
+//                        String overview = observableMovies.getResultsObservable().get(i).getOverview();
+//                        String posterPath = observableMovies.getResultsObservable().get(i).getPosterPath();
+//                        String releaseDate = observableMovies.getResultsObservable().get(i).getReleaseDate();
+//
+//                        ObservableMovies movies = new ObservableMovies();
+//                        movies.setId(id);
+//                        movies.setTitle(title);
+//                        movies.setOverview(overview);
+//                        movies.setPosterPath(posterPath);
+//                        movies.setReleaseDate(releaseDate);
+//
+//                        moviesFlowableArrayList.add(movies);
+//                        moviesFlowableMutableLiveData.postValue(moviesFlowableArrayList);
+////                        Executor.IOThread(() -> moviesDao.insertAllObservable(movies));
+//                    }
+//
+//                    return list;
+//
+//                })
+                .map(ResultsObservable::getResultsObservable)
                 .map(movies -> toLoadResult(movies, page))
                 .onErrorReturn(PagingSource.LoadResult.Error::new);
     }

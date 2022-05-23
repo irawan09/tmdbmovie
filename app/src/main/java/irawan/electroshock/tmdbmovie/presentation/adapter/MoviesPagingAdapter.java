@@ -56,9 +56,9 @@ public class MoviesPagingAdapter
 
         ObservableMovies currentMovie = getItem(position);
         if( currentMovie != null){
-            String title = currentMovie.get(position).getTitle();
-            String image = currentMovie.get(position).getPosterPath();
-            String overview = currentMovie.get(position).getOverview();
+            String title = currentMovie.getTitle();
+            String image = currentMovie.getPosterPath();
+            String overview = currentMovie.getOverview();
             holder.binding.movieTitle.setText(title);
 
             Picasso.with(context)

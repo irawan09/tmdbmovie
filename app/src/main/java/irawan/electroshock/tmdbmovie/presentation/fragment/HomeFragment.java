@@ -26,6 +26,7 @@ import irawan.electroshock.tmdbmovie.R;
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.data.database.Executor;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
+import irawan.electroshock.tmdbmovie.data.model.ObservableMovies;
 import irawan.electroshock.tmdbmovie.databinding.HomeFragmentBinding;
 import irawan.electroshock.tmdbmovie.presentation.adapter.MoviesPagingAdapter;
 import irawan.electroshock.tmdbmovie.presentation.fragment.viewmodel.MoviesViewModel;
@@ -131,7 +132,7 @@ public class HomeFragment extends Fragment {
         binding.btnAsObservable.setOnClickListener(v->
                 mViewModel.moviesObservableGetData().observe(
                         getViewLifecycleOwner(),
-                        this::initMovieFragmentView)
+                        this::initReactiveMovieFragmentView)
         );
 
         binding.btnAsDatabase.setOnClickListener(v->
@@ -153,6 +154,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
+
     private void initMovieFragmentView(ArrayList<Movies> moviesList) {
         FragmentManager fragmentManager = this.requireActivity().getSupportFragmentManager();
         fragmentManager.popBackStack();
@@ -165,6 +167,21 @@ public class HomeFragment extends Fragment {
 
         transaction.addToBackStack("Home Fragment");
         transaction.replace(R.id.frameLayout, moviesFragment);
+        transaction.commit();
+    }
+
+    private void initReactiveMovieFragmentView(ArrayList<ObservableMovies> moviesList) {
+        FragmentManager fragmentManager = this.requireActivity().getSupportFragmentManager();
+        fragmentManager.popBackStack();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        MoviesObservableFragment moviesObservableFragment = new MoviesObservableFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("MoviesData", moviesList);
+        moviesObservableFragment.setArguments(bundle);
+
+        transaction.addToBackStack("Home Fragment");
+        transaction.replace(R.id.frameLayout, moviesObservableFragment);
         transaction.commit();
     }
 }

@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity(tableName = "tb_movies_observable")
-public class ObservableMovies extends ArrayList<Movies> implements Serializable {
+public class ObservableMovies implements Serializable {
 
     @SerializedName("id")
     @Expose

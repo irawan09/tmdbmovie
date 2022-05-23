@@ -42,12 +42,8 @@ public class MoviesViewModel extends ViewModel {
         return moviesUseCaseModule.provideGetDatabaseData();
     }
 
-    public MutableLiveData<ArrayList<Movies>> moviesObservableGetData(){
+    public MutableLiveData<ArrayList<ObservableMovies>> moviesObservableGetData(){
         return moviesUseCaseModule.provideMoviesObservableGetData();
-    }
-
-    public Flowable<PagingData<ObservableMovies>> moviesGetAsFlowable(){
-        return pagingDataFlow;
     }
 
     public void subscribeFlowable(Context context){

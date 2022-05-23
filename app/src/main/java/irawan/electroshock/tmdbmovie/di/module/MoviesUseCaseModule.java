@@ -41,7 +41,7 @@ public class MoviesUseCaseModule {
 
     @Provides
     @Singleton
-    public MutableLiveData<ArrayList<Movies>> provideMoviesObservableGetData(){
+    public MutableLiveData<ArrayList<ObservableMovies>> provideMoviesObservableGetData(){
         return repository.provideMoviesObservableGetData();
     }
 

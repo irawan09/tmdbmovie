@@ -9,13 +9,13 @@ public class ResultsObservable {
 
     @SerializedName("results")
     @Expose
-    private ArrayList<Movies> resultsObservable;
+    private ArrayList<ObservableMovies> resultsObservable;
 
-    public ArrayList<Movies> getResultsObservable() {
+    public ArrayList<ObservableMovies> getResultsObservable() {
         return resultsObservable;
     }
 
-    public void setResultsObservable(ArrayList<Movies> resultsObservable) {
+    public void setResultsObservable(ArrayList<ObservableMovies> resultsObservable) {
         this.resultsObservable = resultsObservable;
     }
 }
