@@ -21,7 +21,7 @@ public interface ServiceApi {
     Observable<ResultsObservable> getObservableMovies(@Query("api_key") String apiKey);
 
     @GET("movie/popular")
-    Single<ObservableMovies> getObservableMoviesWithPaging(
+    Single<ResultsObservable> getObservableMoviesWithPaging(
             @Query("api_key") String apiKey,
             @Query("page") int page
             );

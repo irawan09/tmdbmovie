@@ -12,17 +12,26 @@ import irawan.electroshock.tmdbmovie.data.database.retention.ApplicationContext;
 import irawan.electroshock.tmdbmovie.data.database.retention.DatabaseInfo;
 import irawan.electroshock.tmdbmovie.di.module.AppModule;
 import irawan.electroshock.tmdbmovie.di.module.DatabaseModule;
+import irawan.electroshock.tmdbmovie.di.module.MovieDataSourceWithPaging;
 import irawan.electroshock.tmdbmovie.di.module.MoviesRepositoryModule;
+import irawan.electroshock.tmdbmovie.di.module.MoviesUseCaseModule;
 import irawan.electroshock.tmdbmovie.di.module.NetworkModule;
 import irawan.electroshock.tmdbmovie.presentation.fragment.HomeFragment;
-import irawan.electroshock.tmdbmovie.presentation.fragment.JSONFragment;
+import irawan.electroshock.tmdbmovie.presentation.fragment.PagingFragment;
 
 @Singleton
-@Component(modules = {AppModule.class, NetworkModule.class, MoviesRepositoryModule.class, DatabaseModule.class})
+@Component(modules = {
+        AppModule.class,
+        NetworkModule.class,
+        MoviesUseCaseModule.class,
+        MoviesRepositoryModule.class,
+        DatabaseModule.class})
 public interface AppComponent {
     void inject(MainActivity mainActivity);
     void inject(BaseApplication baseApplication);
     void inject(HomeFragment homeFragment);
+    void inject(PagingFragment pagingFragment);
+    void inject(MovieDataSourceWithPaging movieDataSourceWithPaging);
 
     @ApplicationContext
     Context getContext();

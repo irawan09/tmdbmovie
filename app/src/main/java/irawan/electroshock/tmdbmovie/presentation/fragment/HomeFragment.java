@@ -44,7 +44,6 @@ public class HomeFragment extends Fragment {
     private HomeFragmentBinding binding;
     private MoviesViewModel mViewModel;
     private final ArrayList<Movies> movieList =  new ArrayList<>();
-    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     MoviesViewModelFactory mViewModelFactory;

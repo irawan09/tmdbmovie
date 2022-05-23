@@ -1,5 +1,6 @@
 package irawan.electroshock.tmdbmovie.presentation.fragment.viewmodel;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -18,7 +19,7 @@ import javax.inject.Inject;
 import io.reactivex.rxjava3.core.Flowable;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.data.model.ObservableMovies;
-import irawan.electroshock.tmdbmovie.di.module.MovieDataSourceWithPagingModule;
+import irawan.electroshock.tmdbmovie.di.module.MovieDataSourceWithPaging;
 import irawan.electroshock.tmdbmovie.di.module.MoviesUseCaseModule;
 import kotlinx.coroutines.CoroutineScope;
 
@@ -31,7 +32,6 @@ public class MoviesViewModel extends ViewModel {
     @Inject
     public MoviesViewModel(MoviesUseCaseModule moviesUseCaseModule){
         this.moviesUseCaseModule = moviesUseCaseModule;
-        init();
     }
 
     public MutableLiveData<ArrayList<Movies>> moviesGetDataObject(){
@@ -50,9 +50,9 @@ public class MoviesViewModel extends ViewModel {
         return pagingDataFlow;
     }
 
-    private void init(){
+    public void subscribeFlowable(Context context){
         // Define Paging Source
-        MovieDataSourceWithPagingModule moviePagingSource = new MovieDataSourceWithPagingModule();
+        MovieDataSourceWithPaging moviePagingSource = new MovieDataSourceWithPaging(context);
         // Create new pager
         Pager<Integer, ObservableMovies> pager = new Pager<>(
                 new PagingConfig(20,    // pageSize - Count of items in one page
@@ -66,8 +66,7 @@ public class MoviesViewModel extends ViewModel {
         pagingDataFlow = PagingRx.getFlowable(pager);
         CoroutineScope coroutineScope = ViewModelKt.getViewModelScope(this);
         PagingRx.cachedIn(pagingDataFlow, coroutineScope);
-        Log.i(TAG, pagingDataFlow.toString());
-        Log.i(TAG, moviePagingSource.provideLoadSingle().toString());
+//        Log.i(TAG, pagingDataFlow.toString());
     }
 
 }

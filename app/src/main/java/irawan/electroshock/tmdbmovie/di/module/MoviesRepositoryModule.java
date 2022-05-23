@@ -1,9 +1,14 @@
 package irawan.electroshock.tmdbmovie.di.module;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
+import androidx.paging.PagingData;
+import androidx.paging.PagingSource;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +20,9 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.data.database.AppDatabase;
@@ -25,6 +32,7 @@ import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.data.model.ObservableMovies;
 import irawan.electroshock.tmdbmovie.data.model.Results;
 import irawan.electroshock.tmdbmovie.data.model.ResultsObservable;
+import irawan.electroshock.tmdbmovie.di.component.AppComponent;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,10 +40,6 @@ import retrofit2.Retrofit;
 
 @Module
 public class MoviesRepositoryModule {
-
-    @Inject
-    public MoviesRepositoryModule(){
-    }
 
     @Inject
     Retrofit retrofit;
@@ -47,7 +51,13 @@ public class MoviesRepositoryModule {
     private static final String apiKey = "9edf3fee29984e86d8be8170d810dd71";
     private static final String TAG = "Repository";
     private final ArrayList<Movies> moviesArrayList = new ArrayList<>();
+    private final ArrayList<ObservableMovies> moviesFlowableArrayList = new ArrayList<>();
     private final MutableLiveData<ArrayList<Movies>> moviesMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<ObservableMovies>> moviesFlowableMutableLiveData = new MutableLiveData<>();
+
+    @Inject
+    public MoviesRepositoryModule(){
+    }
 
     @Provides
     @Singleton
@@ -145,6 +155,56 @@ public class MoviesRepositoryModule {
                         error-> Log.e(TAG, "getMovies: " + error.getMessage() ));
 
         return moviesMutableLiveData;
+    }
+
+    @Singleton
+    @Provides
+    public Single<PagingSource.LoadResult<Integer, ObservableMovies>> provideFlowablePaging(int page, Context context){
+        NetworkModule networkModule = new NetworkModule("https://api.themoviedb.org/3/");
+        DatabaseModule databaseModule = new DatabaseModule(context);
+
+        Gson gson = networkModule.provideGson();
+        Retrofit retrofit = networkModule.provideRetrofit(gson);
+        ServiceApi api = retrofit.create(ServiceApi.class);
+
+        AppDatabase database = databaseModule.provideDatabase();
+        MoviesDao moviesDao = database.moviesDao();
+
+        Log.i(TAG, api.getObservableMoviesWithPaging(apiKey, page).toString());
+
+        return api.getObservableMoviesWithPaging(apiKey, page)
+                .subscribeOn(Schedulers.io())
+                .map(observableMovies -> {
+                    List<ObservableMovies> list = new ArrayList<>();
+                    Log.i("Line ", "---------------------------------------");
+                    for(int i=0; i<observableMovies.getResultsObservable().size(); i++){
+                        String id = observableMovies.getResultsObservable().get(i).getId();
+                        String title = observableMovies.getResultsObservable().get(i).getTitle();
+                        String overview = observableMovies.getResultsObservable().get(i).getOverview();
+                        String posterPath = observableMovies.getResultsObservable().get(i).getPosterPath();
+                        String releaseDate = observableMovies.getResultsObservable().get(i).getReleaseDate();
+
+                        ObservableMovies movies = new ObservableMovies();
+                        movies.setId(id);
+                        movies.setTitle(title);
+                        movies.setOverview(overview);
+                        movies.setPosterPath(posterPath);
+                        movies.setReleaseDate(releaseDate);
+
+                        moviesFlowableArrayList.add(movies);
+                        moviesFlowableMutableLiveData.postValue(moviesFlowableArrayList);
+//                        Executor.IOThread(() -> moviesDao.insertAllObservable(movies));
+                    }
+
+                    return list;
+
+                })
+                .map(movies -> toLoadResult(movies, page))
+                .onErrorReturn(PagingSource.LoadResult.Error::new);
+    }
+
+    private PagingSource.LoadResult<Integer, ObservableMovies> toLoadResult(List<ObservableMovies> movies, Integer page) {
+        return new PagingSource.LoadResult.Page<>(movies, page == 1 ? null : page - 1, page + 1);
     }
 
 }

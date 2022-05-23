@@ -20,6 +20,8 @@ import kotlinx.coroutines.CoroutineDispatcher;
 public class MoviesPagingAdapter
         extends PagingDataAdapter<ObservableMovies, MoviesPagingAdapter.MovieViewHolder>{
 
+    public static final int LOADING_ITEM = 0;
+    public static final int MOVIE_ITEM = 1;
     private final Context context;
 
     public MoviesPagingAdapter(@NonNull DiffUtil.ItemCallback<ObservableMovies> diffCallback,
