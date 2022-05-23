@@ -10,3 +10,4 @@ TMDB is a community-driven movie and television series database. Since 2008, all
 8. Lottie
 9. AndroidX
 10. ViewBinding
+11. Pagging 3
