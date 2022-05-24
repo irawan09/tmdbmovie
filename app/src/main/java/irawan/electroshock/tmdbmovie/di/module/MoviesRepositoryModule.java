@@ -46,7 +46,7 @@ public class MoviesRepositoryModule {
     MoviesDao dao;
     Movies moviesModel;
     private static final String apiKey = "9edf3fee29984e86d8be8170d810dd71";
-    private static final String TAG = "Repository";
+    private static final String TAG = MoviesRepositoryModule.class.getSimpleName();
     private final ArrayList<Movies> moviesArrayList = new ArrayList<>();
     private final MutableLiveData<ArrayList<Movies>> moviesMutableLiveData = new MutableLiveData<>();
 

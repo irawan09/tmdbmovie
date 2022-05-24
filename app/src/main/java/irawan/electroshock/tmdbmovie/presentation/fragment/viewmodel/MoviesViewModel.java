@@ -17,13 +17,13 @@ import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Flowable;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
-import irawan.electroshock.tmdbmovie.data.api.MovieDataSourceWithPaging;
+import irawan.electroshock.tmdbmovie.data.MovieDataSourceWithPaging;
 import irawan.electroshock.tmdbmovie.di.module.MoviesUseCaseModule;
 import kotlinx.coroutines.CoroutineScope;
 
 public class MoviesViewModel extends ViewModel {
 
-    private String TAG = "ViewModel data";
+    private String TAG = MoviesViewModel.class.getSimpleName();
     MoviesUseCaseModule moviesUseCaseModule;
     public Flowable<PagingData<Movies>> pagingDataFlow;
 

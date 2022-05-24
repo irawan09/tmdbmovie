@@ -18,7 +18,7 @@ import irawan.electroshock.tmdbmovie.presentation.adapter.MoviesAdapter;
 
 public class MoviesFragment extends Fragment {
 
-    private static final String TAG = "MoviesFragment data";
+    private static final String TAG = MoviesFragment.class.getSimpleName();
     private FragmentMoviesBinding moviesFragmentBinding;
     private ArrayList<Movies> moviesArrayList = new ArrayList<>();
 

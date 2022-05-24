@@ -1,4 +1,4 @@
-package irawan.electroshock.tmdbmovie.data.api;
+package irawan.electroshock.tmdbmovie.data;
 
 import android.content.Context;
 

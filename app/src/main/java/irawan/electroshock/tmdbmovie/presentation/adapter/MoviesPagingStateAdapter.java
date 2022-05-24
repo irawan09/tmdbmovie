@@ -17,6 +17,7 @@ import irawan.electroshock.tmdbmovie.databinding.LoadStateItemBinding;
 
 public class MoviesPagingStateAdapter extends LoadStateAdapter<MoviesPagingStateAdapter.LoadStateViewHolder> {
 
+    private String TAG = MoviesPagingAdapter.class.getSimpleName();
     private final View.OnClickListener mRetryCallback;
 
     public MoviesPagingStateAdapter(View.OnClickListener mRetryCallback) {

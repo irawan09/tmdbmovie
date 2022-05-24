@@ -34,7 +34,7 @@ import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment {
 
-    private static final String TAG = "Home Data";
+    private static final String TAG = HomeFragment.class.getSimpleName();
     private static final String apiKey = "9edf3fee29984e86d8be8170d810dd71";
     private HomeFragmentBinding binding;
     private MoviesViewModel mViewModel;

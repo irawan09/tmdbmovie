@@ -19,7 +19,7 @@ import irawan.electroshock.tmdbmovie.databinding.MovieCardBinding;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
 
-    String TAG = "MoviesAdapter";
+    String TAG = MoviesAdapter.class.getSimpleName();
     ArrayList<Movies> movieList;
     private final Context context;
     MovieCardBinding binding;

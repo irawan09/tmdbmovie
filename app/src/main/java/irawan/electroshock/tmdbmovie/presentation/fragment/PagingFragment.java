@@ -29,7 +29,7 @@ import irawan.electroshock.tmdbmovie.utils.MovieComparator;
 
 public class PagingFragment extends Fragment {
 
-    private static final String TAG = "PagingFragment Data";
+    private static final String TAG = PagingFragment.class.getSimpleName();
     private PagingFragmentBinding pagingFragment;
     private MoviesViewModel  mViewModel;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();

@@ -18,6 +18,7 @@ import kotlinx.coroutines.CoroutineDispatcher;
 public class MoviesPagingAdapter
         extends PagingDataAdapter<Movies, MoviesPagingAdapter.MovieViewHolder>{
 
+    private String TAG = MoviesPagingAdapter.class.getSimpleName();
     public static final int LOADING_ITEM = 0;
     public static final int MOVIE_ITEM = 1;
     private final Context context;
