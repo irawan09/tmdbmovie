@@ -50,7 +50,6 @@ public class MoviesObservableFragment extends Fragment {
 
             moviesArrayList = (ArrayList<Movies>) getData.getSerializable("MoviesData");
             adapter.updateList(moviesArrayList);
-
         }
     }
 }

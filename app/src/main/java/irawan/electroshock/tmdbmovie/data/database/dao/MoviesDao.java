@@ -7,7 +7,9 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
+import java.util.Objects;
 
+import io.reactivex.rxjava3.core.Single;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
 
 @Dao
@@ -17,6 +19,9 @@ public interface MoviesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Movies... movieEntities);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertObjectsAll(Single<Object>... movieEntities);
 
     @Delete
     void delete(Movies movieEntity);
