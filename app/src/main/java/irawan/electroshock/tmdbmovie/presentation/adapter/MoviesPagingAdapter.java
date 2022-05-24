@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 
 import irawan.electroshock.tmdbmovie.data.model.ObservableMovies;
+import irawan.electroshock.tmdbmovie.databinding.FlowableMovieCardBinding;
 import irawan.electroshock.tmdbmovie.databinding.MovieCardBinding;
 import kotlinx.coroutines.CoroutineDispatcher;
 
@@ -48,7 +49,7 @@ public class MoviesPagingAdapter
     @NonNull
     @Override
     public MoviesPagingAdapter.MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MovieViewHolder(MovieCardBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new MovieViewHolder(FlowableMovieCardBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -64,23 +65,18 @@ public class MoviesPagingAdapter
             Picasso.with(context)
                     .load("https://image.tmdb.org/t/p/w500"+image)
                     .into(holder.binding.movieImage);
-
-            holder.binding.movieDescription.setText(overview);
         }
 
     }
-
     /* ----------------------------------------------------------- */
-
     public static class MovieViewHolder extends RecyclerView.ViewHolder{
 
-        private final MovieCardBinding binding;
+        private final FlowableMovieCardBinding binding;
 
-        public MovieViewHolder(MovieCardBinding binding) {
+        public MovieViewHolder(FlowableMovieCardBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
     }
-
     /* ----------------------------------------------------------- */
 }
