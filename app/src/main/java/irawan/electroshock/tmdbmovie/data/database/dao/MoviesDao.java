@@ -20,9 +20,6 @@ public interface MoviesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Movies... movieEntities);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertObjectsAll(Single<Object>... movieEntities);
-
     @Delete
     void delete(Movies movieEntity);
 
