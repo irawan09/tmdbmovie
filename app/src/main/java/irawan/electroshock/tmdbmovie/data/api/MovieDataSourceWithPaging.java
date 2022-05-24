@@ -1,4 +1,4 @@
-package irawan.electroshock.tmdbmovie.di.module;
+package irawan.electroshock.tmdbmovie.data.api;
 
 import android.content.Context;
 
@@ -11,6 +11,8 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
+import irawan.electroshock.tmdbmovie.di.module.MoviesRepositoryModule;
+import irawan.electroshock.tmdbmovie.di.module.MoviesUseCaseModule;
 
 
 public class MovieDataSourceWithPaging extends RxPagingSource<Integer, Movies> {

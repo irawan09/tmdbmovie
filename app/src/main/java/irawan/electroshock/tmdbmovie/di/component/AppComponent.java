@@ -12,7 +12,7 @@ import irawan.electroshock.tmdbmovie.data.database.retention.ApplicationContext;
 import irawan.electroshock.tmdbmovie.data.database.retention.DatabaseInfo;
 import irawan.electroshock.tmdbmovie.di.module.AppModule;
 import irawan.electroshock.tmdbmovie.di.module.DatabaseModule;
-import irawan.electroshock.tmdbmovie.di.module.MovieDataSourceWithPaging;
+import irawan.electroshock.tmdbmovie.data.api.MovieDataSourceWithPaging;
 import irawan.electroshock.tmdbmovie.di.module.MoviesRepositoryModule;
 import irawan.electroshock.tmdbmovie.di.module.MoviesUseCaseModule;
 import irawan.electroshock.tmdbmovie.di.module.NetworkModule;

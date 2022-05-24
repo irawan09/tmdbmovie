@@ -17,7 +17,7 @@ import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Flowable;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
-import irawan.electroshock.tmdbmovie.di.module.MovieDataSourceWithPaging;
+import irawan.electroshock.tmdbmovie.data.api.MovieDataSourceWithPaging;
 import irawan.electroshock.tmdbmovie.di.module.MoviesUseCaseModule;
 import kotlinx.coroutines.CoroutineScope;
 
