@@ -1,7 +1,6 @@
 package irawan.electroshock.tmdbmovie.presentation.fragment.viewmodel;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -18,7 +17,6 @@ import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Flowable;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
-import irawan.electroshock.tmdbmovie.data.model.ObservableMovies;
 import irawan.electroshock.tmdbmovie.di.module.MovieDataSourceWithPaging;
 import irawan.electroshock.tmdbmovie.di.module.MoviesUseCaseModule;
 import kotlinx.coroutines.CoroutineScope;
@@ -27,7 +25,7 @@ public class MoviesViewModel extends ViewModel {
 
     private String TAG = "ViewModel data";
     MoviesUseCaseModule moviesUseCaseModule;
-    public Flowable<PagingData<ObservableMovies>> pagingDataFlow;
+    public Flowable<PagingData<Movies>> pagingDataFlow;
 
     @Inject
     public MoviesViewModel(MoviesUseCaseModule moviesUseCaseModule){
@@ -42,7 +40,7 @@ public class MoviesViewModel extends ViewModel {
         return moviesUseCaseModule.provideGetDatabaseData();
     }
 
-    public MutableLiveData<ArrayList<ObservableMovies>> moviesObservableGetData(){
+    public MutableLiveData<ArrayList<Movies>> moviesObservableGetData(){
         return moviesUseCaseModule.provideMoviesObservableGetData();
     }
 
@@ -50,7 +48,7 @@ public class MoviesViewModel extends ViewModel {
         // Define Paging Source
         MovieDataSourceWithPaging moviePagingSource = new MovieDataSourceWithPaging(context);
         // Create new pager
-        Pager<Integer, ObservableMovies> pager = new Pager<>(
+        Pager<Integer, Movies> pager = new Pager<>(
                 new PagingConfig(20,    // pageSize - Count of items in one page
                         20,       // prefetchDistance - Number of items to prefetch
                         false,  // enablePlaceholders - Enable placeholders for data which is not yet loaded
@@ -62,7 +60,6 @@ public class MoviesViewModel extends ViewModel {
         pagingDataFlow = PagingRx.getFlowable(pager);
         CoroutineScope coroutineScope = ViewModelKt.getViewModelScope(this);
         PagingRx.cachedIn(pagingDataFlow, coroutineScope);
-//        Log.i(TAG, pagingDataFlow.toString());
     }
 
 }

@@ -11,34 +11,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import org.jetbrains.annotations.NotNull;
-
-import irawan.electroshock.tmdbmovie.data.model.ObservableMovies;
+import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.databinding.FlowableMovieCardBinding;
-import irawan.electroshock.tmdbmovie.databinding.MovieCardBinding;
 import kotlinx.coroutines.CoroutineDispatcher;
 
 public class MoviesPagingAdapter
-        extends PagingDataAdapter<ObservableMovies, MoviesPagingAdapter.MovieViewHolder>{
+        extends PagingDataAdapter<Movies, MoviesPagingAdapter.MovieViewHolder>{
 
     public static final int LOADING_ITEM = 0;
     public static final int MOVIE_ITEM = 1;
     private final Context context;
 
-    public MoviesPagingAdapter(@NonNull DiffUtil.ItemCallback<ObservableMovies> diffCallback,
+    public MoviesPagingAdapter(@NonNull DiffUtil.ItemCallback<Movies> diffCallback,
                                @NonNull CoroutineDispatcher mainDispatcher,
                                Context context) {
         super(diffCallback, mainDispatcher);
         this.context = context;
     }
 
-    public MoviesPagingAdapter(@NonNull DiffUtil.ItemCallback<ObservableMovies> diffCallback,
+    public MoviesPagingAdapter(@NonNull DiffUtil.ItemCallback<Movies> diffCallback,
                                Context context) {
         super(diffCallback);
         this.context = context;
     }
 
-    public MoviesPagingAdapter(@NonNull DiffUtil.ItemCallback<ObservableMovies> diffCallback,
+    public MoviesPagingAdapter(@NonNull DiffUtil.ItemCallback<Movies> diffCallback,
                                @NonNull CoroutineDispatcher mainDispatcher,
                                @NonNull CoroutineDispatcher workerDispatcher,
                                Context context) {
@@ -55,7 +52,7 @@ public class MoviesPagingAdapter
     @Override
     public void onBindViewHolder(@NonNull MoviesPagingAdapter.MovieViewHolder holder, int position) {
 
-        ObservableMovies currentMovie = getItem(position);
+        Movies currentMovie = getItem(position);
         if( currentMovie != null){
             String title = currentMovie.getTitle();
             String image = currentMovie.getPosterPath();

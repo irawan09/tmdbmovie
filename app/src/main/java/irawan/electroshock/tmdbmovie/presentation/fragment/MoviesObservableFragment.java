@@ -13,17 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 
 import irawan.electroshock.tmdbmovie.data.model.Movies;
-import irawan.electroshock.tmdbmovie.data.model.ObservableMovies;
-import irawan.electroshock.tmdbmovie.databinding.FragmentMoviesBinding;
 import irawan.electroshock.tmdbmovie.databinding.FragmentObservableMoviesBinding;
 import irawan.electroshock.tmdbmovie.presentation.adapter.MoviesAdapter;
-import irawan.electroshock.tmdbmovie.presentation.adapter.MoviesObservableAdapter;
 
 public class MoviesObservableFragment extends Fragment {
 
     private static final String TAG = "MoviesFragment data";
     private FragmentObservableMoviesBinding moviesFragmentBinding;
-    private ArrayList<ObservableMovies> moviesArrayList = new ArrayList<>();
+    private ArrayList<Movies> moviesArrayList = new ArrayList<>();
 
     public static MoviesObservableFragment newInstance() {
         return new MoviesObservableFragment();
@@ -48,10 +45,10 @@ public class MoviesObservableFragment extends Fragment {
         Bundle getData = this.getArguments();
         if(getData != null){
             moviesFragmentBinding.moviesObservableRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            MoviesObservableAdapter adapter = new MoviesObservableAdapter(moviesArrayList, getContext());
+            MoviesAdapter adapter = new MoviesAdapter(moviesArrayList, getContext());
             moviesFragmentBinding.moviesObservableRecyclerView.setAdapter(adapter);
 
-            moviesArrayList = (ArrayList<ObservableMovies>) getData.getSerializable("MoviesData");
+            moviesArrayList = (ArrayList<Movies>) getData.getSerializable("MoviesData");
             adapter.updateList(moviesArrayList);
 
         }
