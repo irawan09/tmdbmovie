@@ -187,7 +187,7 @@ public class MoviesRepositoryModule {
             try {
                 Executor.concurrentThread(() -> database.insertAll(moviesModel));
             } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
+               Log.i(TAG, e.getMessage());
             }
         }
 
