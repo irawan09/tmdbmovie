@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Executor {
-    private static String TAG = "Executors";
+    private static final String TAG = "Executors";
     
     public static void IOThread(Runnable t){
         ExecutorService IOExecutor = Executors.newSingleThreadExecutor();
