@@ -23,15 +23,15 @@ import irawan.electroshock.tmdbmovie.presentation.fragment.PagingFragment;
 @Component(modules = {
         AppModule.class,
         NetworkModule.class,
-        MoviesUseCaseModule.class,
+        DatabaseModule.class,
         MoviesRepositoryModule.class,
-        DatabaseModule.class})
+        MoviesUseCaseModule.class
+})
 public interface AppComponent {
-    void inject(MainActivity mainActivity);
     void inject(BaseApplication baseApplication);
+    void inject(MainActivity mainActivity);
     void inject(HomeFragment homeFragment);
     void inject(PagingFragment pagingFragment);
-    void inject(MovieDataSourceWithPaging movieDataSourceWithPaging);
 
     @ApplicationContext
     Context getContext();

@@ -31,7 +31,6 @@ public class PagingFragment extends Fragment {
 
     private static final String TAG = PagingFragment.class.getSimpleName();
     private PagingFragmentBinding pagingFragment;
-    private MoviesViewModel  mViewModel;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     @Inject
     MoviesViewModelFactory mViewModelFactory;
@@ -60,7 +59,7 @@ public class PagingFragment extends Fragment {
 
         ((BaseApplication) this.requireActivity().getApplication()).getNetComponent().inject(this);
 
-        mViewModel = new ViewModelProvider(this, mViewModelFactory).get(MoviesViewModel.class);
+        MoviesViewModel mViewModel = new ViewModelProvider(this, mViewModelFactory).get(MoviesViewModel.class);
 
         mViewModel.subscribeFlowable(this.requireContext());
         Disposable disposable = mViewModel.pagingDataFlow.subscribe(moviePagingData -> {
