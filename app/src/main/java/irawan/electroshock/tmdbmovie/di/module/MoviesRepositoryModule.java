@@ -184,8 +184,6 @@ public class MoviesRepositoryModule {
             moviesModel.setOverview(overview);
             moviesModel.setPosterPath(posterPath);
             moviesModel.setReleaseDate(releaseDate);
-            moviesArrayList.add(moviesModel);
-            moviesMutableLiveData.postValue(moviesArrayList);
             try {
                 Executor.concurrentThread(() -> database.insertAll(moviesModel));
             } catch (InterruptedException | ExecutionException e) {
