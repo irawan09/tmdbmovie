@@ -13,11 +13,14 @@ public class Executor {
     public static void IOThread(Runnable t){
         ExecutorService IOExecutor = Executors.newSingleThreadExecutor();
         IOExecutor.execute(t);
+        IOExecutor.shutdown();
+        Log.i(TAG, "All Execution is done? "+IOExecutor.isShutdown());
     }
 
     public static void concurrentThread(Runnable r) throws InterruptedException, ExecutionException {
         ExecutorService fixedExecutor = Executors.newFixedThreadPool(5);
         Future<?> futures = fixedExecutor.submit(r);
-        Log.i(TAG, "All Execution is done? "+futures.isDone());
+        fixedExecutor.shutdown();
+        Log.i(TAG, "All Execution is done? "+fixedExecutor.isShutdown());
     }
 }
