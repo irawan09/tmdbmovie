@@ -19,7 +19,7 @@ public class Executor {
 
     public static void concurrentThread(Runnable r) throws InterruptedException, ExecutionException {
         ExecutorService fixedExecutor = Executors.newFixedThreadPool(5);
-        Future<?> futures = fixedExecutor.submit(r);
+        fixedExecutor.submit(r);
         fixedExecutor.shutdown();
         Log.i(TAG, "All Execution is done? "+fixedExecutor.isShutdown());
     }
