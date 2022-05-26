@@ -3,8 +3,6 @@ package irawan.electroshock.tmdbmovie.utils;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.RecursiveAction;
 
-import irawan.electroshock.tmdbmovie.data.database.Executor;
-
 public class DatabaseRecursive extends RecursiveAction {
 
     private final Runnable r;

@@ -1,4 +1,4 @@
-package irawan.electroshock.tmdbmovie.data.database;
+package irawan.electroshock.tmdbmovie.utils;
 
 import android.util.Log;
 

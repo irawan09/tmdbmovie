@@ -25,7 +25,7 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import irawan.electroshock.tmdbmovie.data.api.ServiceApi;
 import irawan.electroshock.tmdbmovie.data.database.AppDatabase;
-import irawan.electroshock.tmdbmovie.data.database.Executor;
+import irawan.electroshock.tmdbmovie.utils.Executor;
 import irawan.electroshock.tmdbmovie.data.database.dao.MoviesDao;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.data.model.Results;
