@@ -71,7 +71,7 @@ public class PagingFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this.requireContext(), 2);
 
         pagingFragment.recyclerViewMovies.setLayoutManager(gridLayoutManager);
-        pagingFragment.recyclerViewMovies.addItemDecoration(new GridSpace(2, 12, true));
+        pagingFragment.recyclerViewMovies.addItemDecoration(new GridSpace(2, 6, true));
         pagingFragment.recyclerViewMovies.setAdapter(
                 moviesPagingAdapter.withLoadStateFooter(
                         new MoviesPagingStateAdapter(mview -> moviesPagingAdapter.retry())
