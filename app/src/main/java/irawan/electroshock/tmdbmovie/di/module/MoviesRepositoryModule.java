@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -29,6 +30,7 @@ import irawan.electroshock.tmdbmovie.data.database.Executor;
 import irawan.electroshock.tmdbmovie.data.database.dao.MoviesDao;
 import irawan.electroshock.tmdbmovie.data.model.Movies;
 import irawan.electroshock.tmdbmovie.data.model.Results;
+import irawan.electroshock.tmdbmovie.utils.DatabaseRecursive;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +48,8 @@ public class MoviesRepositoryModule {
     ServiceApi api;
     MoviesDao dao;
     Movies moviesModel;
+    ForkJoinPool forkJoinPool;
+    DatabaseRecursive databaseRecursive;
     private static final String apiKey = "9edf3fee29984e86d8be8170d810dd71";
     private static final String TAG = MoviesRepositoryModule.class.getSimpleName();
     private final ArrayList<Movies> moviesArrayList = new ArrayList<>();
@@ -53,6 +57,7 @@ public class MoviesRepositoryModule {
 
     @Inject
     public MoviesRepositoryModule(){
+        forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
     }
 
     @Provides
@@ -184,11 +189,8 @@ public class MoviesRepositoryModule {
             moviesModel.setOverview(overview);
             moviesModel.setPosterPath(posterPath);
             moviesModel.setReleaseDate(releaseDate);
-            try {
-                Executor.concurrentThread(() -> database.insertAll(moviesModel));
-            } catch (InterruptedException | ExecutionException e) {
-               Log.i(TAG, e.getMessage());
-            }
+            databaseRecursive = new DatabaseRecursive(() -> database.insertAll(moviesModel));
+            forkJoinPool.invoke(databaseRecursive);
         }
 
         return new PagingSource.LoadResult.Page<>(movies, page == 1 ? null : page - 1, page + 1);
