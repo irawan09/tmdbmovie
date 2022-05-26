@@ -7,7 +7,7 @@ import irawan.electroshock.tmdbmovie.data.database.Executor;
 
 public class DatabaseRecursive extends RecursiveAction {
 
-    private Runnable r;
+    private final Runnable r;
 
     public DatabaseRecursive(Runnable r) {
         this.r = r;
