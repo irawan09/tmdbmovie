@@ -13,7 +13,6 @@ public class DatabaseRecursive extends RecursiveAction {
         this.r = r;
     }
 
-
     @Override
     protected void compute() {
         try {
