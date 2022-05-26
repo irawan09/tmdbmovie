@@ -63,7 +63,6 @@ public class PagingFragment extends Fragment {
 
         mViewModel.subscribeFlowable(this.requireContext());
         Disposable disposable = mViewModel.pagingDataFlow.subscribe(moviePagingData -> {
-            Log.i(TAG, moviePagingData.toString());
             moviesPagingAdapter.submitData(getLifecycle(), moviePagingData);
         });
 
