@@ -148,7 +148,6 @@ public class HomeFragment extends Fragment {
         });
     }
 
-
     private void initMovieFragmentView(ArrayList<Movies> moviesList) {
         FragmentManager fragmentManager = this.requireActivity().getSupportFragmentManager();
         fragmentManager.popBackStack();
